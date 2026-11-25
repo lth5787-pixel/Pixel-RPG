@@ -99,14 +99,24 @@ body.tc #tc .pg.j{left:12px;width:calc(var(--bh)*2 + 10px);justify-content:cente
 </style></head><body>
 <div id="w"><canvas id="c"></canvas><canvas id="t"></canvas></div>
 <div id="hud" class="o"></div><div id="ms" class="o"></div>
-<div id="tb" class="o"><button id="set">캐릭터 설정</button><button id="mu">🔊 음악</button><button id="fs">전체화면 (F11)</button></div><div id="vp" class="o" hidden><div class="vr"><b>음악 설정</b><button id="vx" aria-label="닫기">✕</button></div><div class="vr"><span>음악</span><button id="vt">켜짐</button></div><div class="vr"><span>음량</span><output id="vo" for="vs">50%</output></div><div class="vr"><button class="vi" id="v0" aria-label="소리 끄기">🔈</button><input id="vs" type="range" min="0" max="100" step="1" value="50" aria-label="음량"><button class="vi" id="v1" aria-label="최대 음량">🔊</button></div></div>
+<div id="tb" class="o"><button id="set">캐릭터 설정</button><button id="tr">데이터 이동</button><button id="mu">🔊 음악</button><button id="fs">전체화면 (F11)</button></div><div id="vp" class="o" hidden><div class="vr"><b>음악 설정</b><button id="vx" aria-label="닫기">✕</button></div><div class="vr"><span>음악</span><button id="vt">켜짐</button></div><div class="vr"><span>음량</span><output id="vo" for="vs">50%</output></div><div class="vr"><button class="vi" id="v0" aria-label="소리 끄기">🔈</button><input id="vs" type="range" min="0" max="100" step="1" value="50" aria-label="음량"><button class="vi" id="v1" aria-label="최대 음량">🔊</button></div></div>
 <div id="toast" class="o"></div><div id="hb"></div>
 <div id="tc"><div class="pg j"><button data-k="KeyW">점프</button></div><div class="pg l"><button data-k="KeyA">◀</button><button data-k="KeyD">▶</button></div><div class="pg r"><button data-k="KeyK">특수</button><button data-k="KeyJ">공격</button><button data-k="KeyQ">Q</button><button data-k="KeyR">대화</button><button data-k="KeyE">가방</button><button data-k="KeyT">귀환</button></div></div>
 <div id="ac" class="ov" style="z-index:12;background:rgba(0,0,0,.92)"><div class="bx" style="text-align:center"><h1>Pixel RPG 1</h1><p>접속 코드를 입력해 주세요.</p><input id="acin" type="text" maxlength="24" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="접속 코드" style="width:100%;box-sizing:border-box;padding:12px;font-size:16px;text-align:center;letter-spacing:2px;text-transform:uppercase"><button id="acgo" style="margin-top:8px;padding:12px 18px;font-size:15px;width:100%">입장</button><p id="acer" style="margin:8px 0 0;font-size:12px;color:#ff8a8a;min-height:16px"></p><p id="acdv" style="margin:6px 0 0;font-size:11px;opacity:.6;user-select:text;-webkit-user-select:text"></p></div></div><div id="dl" class="ov" style="z-index:10;background:rgba(0,0,0,.75);display:none"><div class="bx" style="text-align:center"><h1>Pixel RPG 1</h1><p>이 기기에서는 게임을 열 수 없어요.</p><p style="font-size:12px;opacity:.8">허용된 기기가 아니에요. 게임을 받은 곳에 문의해 주세요.</p><p id="dlc" style="font-size:11px;opacity:.65;user-select:text;-webkit-user-select:text"></p><button id="dlcb" style="margin-top:6px;padding:8px 14px;font-size:13px">코드 복사</button></div></div><div id="dv" class="ov" style="z-index:9;background:rgba(0,0,0,.6)"><div class="bx" style="text-align:center"><h1>Pixel RPG 1</h1><p>어떤 기기로 플레이하나요?</p><div class="row" style="flex-wrap:wrap"><button class="dvb" data-d="a" style="flex:1;min-width:92px;padding:16px 6px;font-size:15px">🤖 Android</button><button class="dvb" data-d="i" style="flex:1;min-width:92px;padding:16px 6px;font-size:15px">🍎 iOS</button><button class="dvb" data-d="p" style="flex:1;min-width:92px;padding:16px 6px;font-size:15px">💻 PC</button><button class="dvb" data-d="x" style="flex:1;min-width:92px;padding:16px 6px;font-size:15px">🖥️ iMac</button></div><p style="margin:4px 0 0;font-size:12px">Android와 iOS는 화면 아래에 조작 버튼이 나오고,<br>PC와 iMac은 키보드(WASD)로 조작해요.</p><p id="devc" style="margin:8px 0 0;font-size:11px;opacity:.65;user-select:text;-webkit-user-select:text"></p></div></div>
 <div id="m" class="ov" style="display:none"><div class="bx"><h1>Pixel RPG 1</h1><p>모험가 캐릭터 설정</p>
 <div class="row"><button class="gb on" data-g="m">♂ 남자 (용사)</button><button class="gb" data-g="f">♀ 여자 (여전사)</button></div>
 <input id="id" maxlength="12" placeholder="아이디 (최대 12자)" autocomplete="off"><div id="er"></div>
-<button id="go">모험 시작</button><p style="margin:12px 0 0;font-size:12px">WASD 이동 · J 공격 · K 특수 공격 · Q 상점·빵집·회관·광산·낚시터·문 · R NPC 대화 · E 인벤토리 · F11 전체화면 · Esc 전체화면 종료 (모바일은 화면 버튼)</p></div></div>
+<button id="go">모험 시작</button><button id="trm" style="margin-top:8px;font-size:13px;padding:8px 12px">다른 기기에서 데이터 가져오기</button><p style="margin:12px 0 0;font-size:12px">WASD 이동 · J 공격 · K 특수 공격 · Q 상점·빵집·회관·광산·낚시터·문 · R NPC 대화 · E 인벤토리 · F11 전체화면 · Esc 전체화면 종료 (모바일은 화면 버튼)</p></div></div>
+<div id="trp" class="ov" style="display:none;z-index:11;background:rgba(0,0,0,.65)"><div class="bx" style="width:min(440px,94vw);overflow:auto;text-align:left"><h1 style="text-align:center">데이터 이동</h1>
+<div id="trA"><b>① 이 기기 → 다른 기기</b><p style="font-size:12px;margin:4px 0 6px">「비밀번호를 정하고 「이동 코드 만들기」를 누른 뒤 코드를 복사(또는 파일로 저장)해 다른 기기에서 불러오세요. 다른 기기에서 불러온 것을 확인한 뒤 「이동 완료」를 누르면 이 기기의 데이터가 지워지고, 이 기기에서는 접속 코드를 다시 입력해야 열려요.</p>
+<input id="trpin" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" placeholder="6자리 숫자 비밀번호 (000001~999999)" style="width:100%;box-sizing:border-box;padding:8px;font-size:14px;text-align:center;letter-spacing:3px;margin-bottom:6px"><button id="trmk" style="width:100%;padding:8px">이동 코드 만들기</button>
+<div id="trO" style="display:none"><textarea id="trout" readonly style="width:100%;height:70px;margin-top:6px;font-size:11px;box-sizing:border-box;word-break:break-all"></textarea>
+<div class="row"><button id="trcp">복사</button><button id="trdl">파일로 저장</button></div>
+<button id="trdone" style="width:100%;margin-top:6px;padding:8px;background:#7a2a2a">이동 완료 (이 기기 데이터 지우기)</button></div><hr style="width:100%;opacity:.3"></div>
+<div id="trB"><b id="trBt">② 다른 기기에서 가져오기</b><p style="font-size:12px;margin:4px 0 6px">다른 기기에서 만든 이동 코드와, 만들 때 정한 6자리 숫자 비밀번호를 입력하세요.</p><input id="trpin2" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" placeholder="6자리 숫자 비밀번호" style="width:100%;box-sizing:border-box;padding:8px;font-size:14px;text-align:center;letter-spacing:3px;margin-bottom:6px">
+<textarea id="trin" placeholder="PXR1-…" style="width:100%;height:70px;font-size:11px;box-sizing:border-box;word-break:break-all"></textarea>
+<div class="row"><button id="trfb">파일에서 불러오기</button><button id="trgo">불러오기</button></div><input id="trfile" type="file" accept=".txt,text/plain" style="display:none"></div>
+<p id="trmsg" style="font-size:12px;min-height:16px;margin:8px 0 0;color:#ffd24a"></p><button id="trx" style="margin-top:6px">닫기</button></div></div>
 <div id="shop" class="ov"><div class="bx"><h1 id="sh">태초 마을 상점</h1><p id="sc"></p><div id="si"></div><button id="sx">닫기 (Q)</button></div></div>
 <div id="end" class="ov"><div class="bx"><h1>모험 완료!</h1><div id="en"></div>
 <div class="row"><button id="again">같은 캐릭터로 재도전</button><button id="reset">캐릭터 설정</button></div></div></div>
@@ -345,7 +355,7 @@ function b2a(x){const q=atob(x),n=q.length,u=new Uint8Array(n);for(let i=0;i<n;i
 function startBgm(){if(AC){AC.resume();if(!src1)playBgm();return}try{AC=new(window.AudioContext||window.webkitAudioContext)();gn=AC.createGain();gf=AC.createGain();gm=AC.createGain();gn.gain.value=0;gf.gain.value=0;gm.gain.value=0;gn.connect(AC.destination);gf.connect(AC.destination);gm.connect(AC.destination);gx=AC.createGain();gx.gain.value=0;gx.connect(AC.destination);try{fEl=new Audio(URL.createObjectURL(new Blob([b2a(FOREST_B64)],{type:'audio/mpeg'})));fEl.loop=true;fEl.addEventListener('ended',()=>{try{fEl.currentTime=0;fEl.play().catch(()=>{})}catch(e){}});AC.createMediaElementSource(fEl).connect(gx);fEl.play().catch(()=>{})}catch(e){}AC.resume();
 Promise.all([AC.decodeAudioData(b2a(BGM_B64)),AC.decodeAudioData(b2a(BGM2_B64)),AC.decodeAudioData(b2a(MEADOW_B64))]).then(r=>{buf1=r[0];buf2=r[1];buf3=r[2];if(!paused)playBgm()}).catch(()=>{})}catch(e){}}
 let wasM=false,wasX=false;function restartMeadow(){try{if(src3)src3.stop()}catch(e){}const s=AC.createBufferSource();s.buffer=buf3;s.loop=true;s.connect(gm);s.start();src3=s}
-function bgmTick(){if(clrA){clrA.volume=bgmOn?Math.min(1,VOL):0;clrA.muted=!bgmOn||VOL<.02}if(!gn)return;const inM=!DG.on&&P.x>=VE&&P.x<2000;if(inM&&!wasM&&AC&&buf3&&src3&&gm.gain.value<.02)restartMeadow();wasM=inM;const inX=!DG.on&&P.x>=2000;if(inX&&!wasX&&fEl&&gx.gain.value<.02){try{fEl.currentTime=0;fEl.play().catch(()=>{})}catch(e){}}wasX=inX;const cl=x=>Math.max(0,Math.min(1,x)),w=cl((DG.on?0:VE+60-P.x)/60),wm=DG.on?0:Math.min(1-w,cl((2060-P.x)/60)),wx=DG.on?0:1-w-wm,wf=DG.on?1:0,v=bgmOn?.45*VOL:0;gn.gain.value+=(v*w-gn.gain.value)*.05;gm.gain.value+=(v*wm-gm.gain.value)*.05;gx.gain.value+=(v*wx*1.5-gx.gain.value)*.05;gf.gain.value+=(v*wf-gf.gain.value)*.05}
+function bgmTick(){if(clrA){clrA.volume=bgmOn?Math.min(1,VOL):0;clrA.muted=!bgmOn||VOL<.02}if(!gn)return;const inM=!DG.on&&P.x>=VE&&P.x<2000;if(inM&&!wasM&&AC&&buf3&&src3&&gm.gain.value<.02)restartMeadow();wasM=inM;const inX=!DG.on&&P.x>=2000;if(inX&&!wasX&&fEl&&gx.gain.value<.02){try{fEl.currentTime=0;fEl.play().catch(()=>{})}catch(e){}}wasX=inX;const cl=x=>Math.max(0,Math.min(1,x)),w=cl((DG.on?0:VE+60-P.x)/60),wm=DG.on?0:Math.min(1-w,cl((2060-P.x)/60)),wx=DG.on?0:1-w-wm,wf=DG.on?1:0,v=bgmOn?.45*VOL*(qOn&&qM=='fish'?.25:1):0;gn.gain.value+=(v*w-gn.gain.value)*.05;gm.gain.value+=(v*wm-gm.gain.value)*.05;gx.gain.value+=(v*wx*1.5-gx.gain.value)*.05;gf.gain.value+=(v*wf-gf.gain.value)*.05}
 const vpSave=()=>{try{localStorage.setItem('pxrpg_audio',JSON.stringify({on:bgmOn,vol:VOL}))}catch(e){}};
 function vpSync(){$('mu').textContent=!bgmOn?'🔇 음악 꺼짐':VOL<.02?'🔈 음악':'🔊 음악';$('vt').textContent=bgmOn?'켜짐':'꺼짐';$('vt').className=bgmOn?'on':'';$('vs').value=Math.round(VOL*100);$('vs').style.setProperty('--p',Math.round(VOL*100)+'%');$('vo').textContent=Math.round(VOL*100)+'%'}
 function vpPlace(){const r=$('mu').getBoundingClientRect();$('vp').style.top=Math.round(r.bottom+6)+'px'}
@@ -697,4 +707,65 @@ $('qb').addEventListener('pointerdown',e=>{if(!qOn||qM!='inv'||e.button>0)return
  if(has)e.preventDefault()});
 
 init();hud();requestAnimationFrame(loop);
+
+// ===== 데이터 이동 (다른 기기로 옮기기) =====
+(function(){
+const TRK='pxrpg_trused',$$=id=>document.getElementById(id);
+let trWas=true,trMode='game',trConf=false,trMade=false;
+const used=()=>{try{return JSON.parse(localStorage.getItem(TRK)||'[]')}catch(e){return[]}};
+const msg=t=>{$$('trmsg').textContent=t||''};
+const b64=j=>{const u=new TextEncoder().encode(j);let s='';for(let i=0;i<u.length;i++)s+=String.fromCharCode(u[i]);return btoa(s)};
+const unb=b=>{const s=atob(b),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return new TextDecoder().decode(u)};
+const ks=seed=>{let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)&255}};
+const xr=(u,pin,salt)=>{const r=ks((Number(pin)*2654435761^salt)>>>0),o=new Uint8Array(u.length);for(let i=0;i<u.length;i++)o[i]=u[i]^r();return o};
+const byb=u=>{let s='';for(let i=0;i<u.length;i++)s+=String.fromCharCode(u[i]);return btoa(s)};
+const bby=b=>{const s=atob(b),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return u};
+const okPin=p=>/^\d{6}$/.test(p)&&Number(p)>=1;
+function snap(pin){const d={v:1,t:Date.now().toString(36)+Math.random().toString(36).slice(2,8),g:gender,u:uid,fr:freeRs,P:P,QS:QS,HB:HB.slice(),kl:kl,col:col,LV:LV,en:en,co:co,ch:ch,tp:tp};
+ const j=JSON.stringify(d),salt=(Math.random()*4294967296)>>>0,c=xr(new TextEncoder().encode(j),pin,salt),o=new Uint8Array(4+c.length);
+ o[0]=salt>>>24&255;o[1]=salt>>>16&255;o[2]=salt>>>8&255;o[3]=salt&255;o.set(c,4);return 'PXR2-'+byb(o)+'-'+ah('trc|'+pin+'|'+j)}
+function valid(d){return d&&d.v===1&&d.P&&d.QS&&Array.isArray(d.HB)&&typeof d.P.coins=='number'&&typeof d.P.lv=='number'}
+// 결과: 데이터 객체 / 'bad'(코드 이상) / 'pin'(비밀번호 틀림) / 'need'(비밀번호 입력 필요)
+function parse(t,pin){const x=String(t||'').replace(/\s+/g,'');
+ const m1=x.match(/^PXR1-([A-Za-z0-9+\/=]+)-([a-z0-9]+)$/);
+ if(m1){if(ah('trf|'+m1[1])!==m1[2])return 'bad';let d;try{d=JSON.parse(unb(m1[1]))}catch(e){return 'bad'}return valid(d)?d:'bad'}
+ const m=x.match(/^PXR2-([A-Za-z0-9+\/=]+)-([a-z0-9]+)$/);if(!m)return 'bad';
+ if(!okPin(pin))return 'need';let u;try{u=bby(m[1])}catch(e){return 'bad'}if(u.length<5)return 'bad';
+ const salt=((u[0]<<24)|(u[1]<<16)|(u[2]<<8)|u[3])>>>0,j=new TextDecoder().decode(xr(u.subarray(4),pin,salt));
+ if(ah('trc|'+pin+'|'+j)!==m[2])return 'pin';let d;try{d=JSON.parse(j)}catch(e){return 'pin'}return valid(d)?d:'bad'}
+function apply(d){init();for(const k in P)if(k in d.P)P[k]=d.P[k];P.vx=0;P.vy=0;QS=d.QS;QS.gid=Math.random();
+ HB.splice(0,6,...[0,1,2,3,4,5].map(i=>d.HB[i]||null));
+ if(d.kl)kl=d.kl;col=d.col|0;if(typeof d.LV=='number')LV=d.LV;if(Array.isArray(d.en))en=d.en;if(Array.isArray(d.co))co=d.co;if(Array.isArray(d.ch))ch=d.ch;if(Array.isArray(d.tp))tp=d.tp;
+ gender=d.g=='f'?'f':'m';uid=String(d.u||'모험가').slice(0,12);freeRs=+d.fr||0;
+ $$('id').value=uid;document.querySelectorAll('.gb').forEach(x=>x.classList.toggle('on',x.dataset.g==gender));
+ chg=null;ended=false;shopOn=false;qOn=false;keys={};hbK='';
+ $$('m').style.display='none';$$('end').style.display='none';$$('trp').style.display='none';paused=false;try{startBgm()}catch(e){}
+ try{const u=used();u.push(d.t);localStorage.setItem(TRK,JSON.stringify(u.slice(-30)))}catch(e){}
+ say('데이터를 불러왔어요! 모험을 이어 가세요');hud()}
+function open(mode){trMode=mode;trWas=paused;paused=true;keys={};trConf=false;trMade=false;msg('');$$('trout').value='';$$('trO').style.display='none';$$('trin').value='';$$('trpin').value='';$$('trpin2').value='';
+ $$('trA').style.display=mode=='game'?'block':'none';$$('trBt').textContent=mode=='game'?'② 다른 기기에서 가져오기':'다른 기기에서 가져오기';$$('trp').style.display='flex'}
+function close(){$$('trp').style.display='none';paused=trWas}
+['trout','trin','trpin','trpin2'].forEach(id=>['keydown','keyup','keypress'].forEach(t=>$$(id).addEventListener(t,e=>e.stopPropagation())));
+$$('tr').onclick=()=>{if(ended||shopOn||qOn)return;open('game')};
+$$('trm').onclick=()=>open('start');
+$$('trx').onclick=close;
+$$('trmk').onclick=()=>{if(DG.on){msg('던전 안에서는 만들 수 없어요. 마을이나 필드로 나온 뒤에 해 주세요.');return}
+ const pn=$$('trpin').value.trim();if(!okPin(pn)){msg('6자리 숫자 비밀번호를 정해 주세요. (예: 123456, 000001~999999)');return}
+ try{$$('trout').value=snap(pn);$$('trO').style.display='block';trMade=true;msg('코드를 만들었어요. 비밀번호 '+pn+'을(를) 꼭 기억하세요! 다른 기기에서 코드와 비밀번호를 입력해야 불러와져요. 지금은 이 기기의 데이터가 그대로 있어요.')}catch(e){msg('코드를 만들지 못했어요.')}};
+$$('trcp').onclick=()=>{const ta=$$('trout'),ok=()=>msg('복사했어요! 다른 기기에서 붙여 넣으세요.'),fb=()=>{ta.focus();ta.select();try{document.execCommand('copy')?ok():msg('코드를 길게 눌러 직접 복사하세요.')}catch(e){msg('코드를 길게 눌러 직접 복사하세요.')}};
+ try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(ta.value).then(ok,fb);else fb()}catch(e){fb()}};
+$$('trdl').onclick=()=>{try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([$$('trout').value],{type:'text/plain'}));a.download='PixelRPG1_이동코드.txt';document.body.appendChild(a);a.click();a.remove();msg('파일로 저장했어요.')}catch(e){msg('저장하지 못했어요. 코드를 복사해 주세요.')}};
+$$('trfb').onclick=()=>$$('trfile').click();
+$$('trfile').onchange=e=>{const f=e.target.files&&e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$$('trin').value=String(r.result||'').trim();trConf=false;msg('파일을 읽었어요. 「불러오기」를 눌러 주세요.')};r.readAsText(f);e.target.value=''};
+$$('trin').oninput=()=>{trConf=false};$$('trpin2').oninput=()=>{trConf=false};
+$$('trgo').onclick=()=>{const d=parse($$('trin').value,$$('trpin2').value.trim());if(d==='need'){msg('6자리 숫자 비밀번호를 입력해 주세요.');return}if(d==='pin'){msg('비밀번호가 맞지 않아요. 이동 코드를 만들 때 정한 숫자인지 확인해 주세요.');return}if(d==='bad'){msg('이동 코드가 맞지 않아요. 전체를 정확히 붙여 넣었는지 확인해 주세요.');return}
+ if(used().includes(d.t)){msg('이 기기에서 이미 불러온 코드예요. 다른 기기에서 새로 이동 코드를 만들어 주세요.');return}
+ if(trMode=='game'&&!trConf){trConf=true;msg('지금 이 기기의 진행 내용이 사라지고 가져온 데이터로 바뀌어요. 계속하려면 「불러오기」를 한 번 더 누르세요.');return}
+ apply(d)};
+$$('trdone').onclick=()=>{if(!trMade)return;
+ stopBgm();init();gender='m';uid='모험가';freeRs=1;chg=null;ended=false;keys={};
+ $$('id').value='';document.querySelectorAll('.gb').forEach(x=>x.classList.toggle('on',x.dataset.g=='m'));
+ $$('go').textContent='모험 시작';$$('er').textContent='';$$('m').style.display='flex';$$('trp').style.display='none';paused=true;
+ const ac=$$('ac');if(ac){ac.style.display='flex';const i=$$('acin');if(i)i.value='';const e=$$('acer');if(e)e.textContent='데이터가 다른 기기로 옮겨졌어요. 이 기기에서 다시 하려면 접속 코드를 입력해 주세요.'}};
+})();
 </script></body></html>
