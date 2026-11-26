@@ -118,6 +118,7 @@ body.tc #tc .pg.r .rm button.big{width:calc(var(--bh)*1.22);height:calc(var(--bh
 body.tc #tc button[data-k=KeyJ]{background:#ffb4a4}
 body.tc #tc button[data-k=KeyW]{background:#a8d4ff}
 body.tc #tc button[data-k=KeyK]{background:#d9b8ff}
+body.tc #tpw{top:calc(100px + env(safe-area-inset-top,0px))!important}
 </style></head><body>
 <div id="w"><canvas id="c"></canvas><canvas id="t"></canvas></div>
 <div id="hud" class="o"></div><div id="ms" class="o"></div>
@@ -129,7 +130,7 @@ body.tc #tc button[data-k=KeyK]{background:#d9b8ff}
 <div class="row"><button class="gb on" data-g="m">♂ 남자 (용사)</button><button class="gb" data-g="f">♀ 여자 (여전사)</button></div>
 <input id="id" maxlength="12" placeholder="아이디 (최대 12자)" autocomplete="off"><div id="er"></div>
 <button id="go">모험 시작</button><button id="trm" style="margin-top:8px;font-size:13px;padding:8px 12px">다른 기기에서 데이터 가져오기</button><p style="margin:12px 0 0;font-size:12px">WASD 이동 · J 공격 · K 특수 공격 · Q 상점·빵집·회관·광산·낚시터·문 · R NPC 대화 · E 인벤토리 · F11 전체화면 · Esc 전체화면 종료 (모바일은 화면 버튼)</p></div></div>
-<div id="trp" class="ov" style="display:none;z-index:11;background:rgba(0,0,0,.65)"><div class="bx" style="width:min(440px,94vw);overflow:auto;text-align:left"><h1 id="trh1" style="text-align:center">데이터 이동</h1>
+<div id="trp" class="ov" style="display:none;z-index:11;background:rgba(0,0,0,.65)"><div class="bx" style="width:min(440px,94vw);max-height:88vh;max-height:88dvh;box-sizing:border-box;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;text-align:left"><h1 id="trh1" style="text-align:center">데이터 이동</h1>
 <div id="trA"><b>① 이 기기 → 다른 기기</b><p id="trAp" style="font-size:12px;margin:4px 0 6px">「비밀번호를 정하고 「이동 코드 만들기」를 누른 뒤 코드를 복사(또는 파일로 저장)해 다른 기기에서 불러오세요. 다른 기기에서 불러온 것을 확인한 뒤 「이동 완료」를 누르면 이 기기의 데이터가 지워지고, 이 기기에서는 접속 코드를 다시 입력해야 열려요.</p>
 <input id="trpin" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" placeholder="6자리 숫자 비밀번호 (000001~999999)" style="width:100%;box-sizing:border-box;padding:8px;font-size:14px;text-align:center;letter-spacing:3px;margin-bottom:6px"><button id="trmk" style="width:100%;padding:8px">이동 코드 만들기</button>
 <div id="trO" style="display:none"><div id="trnum" style="display:none;font-size:34px;font-weight:700;letter-spacing:8px;text-align:center;margin:8px 0;user-select:text;-webkit-user-select:text;color:#ffd24a"></div><div id="trnc" style="display:none;font-size:12px;text-align:center;opacity:.8;margin-bottom:6px;user-select:text;-webkit-user-select:text"></div><div id="trcd"><textarea id="trout" readonly style="width:100%;height:70px;margin-top:6px;font-size:11px;box-sizing:border-box;word-break:break-all"></textarea>
@@ -830,7 +831,7 @@ function drOw(){const M=OWM,k=M.w/OW,cur=P.x<VE?0:P.x<2000?1:P.x<3340+FD?2:3;g.g
  if((fr>>4)%2==0){const px=M.x+Math.max(0,Math.min(OW,P.x))*k;r(px-1,M.y-2,3,M.h+4,'#fff')}g.globalAlpha=1}
 function owText(){const cx=Math.round(cam),M=OWM,k=M.w/OW,cur=P.x<VE?0:P.x<2000?1:P.x<3340+FD?2:3;
  M.a.forEach((a,i)=>{if(i==3)return;tx(a[0],cx+M.x+(a[1]+a[2])/2*k,M.y+M.h+9,i==cur?'#ffd24a':'#aab',6)})}
-function drMap(){const m=DG.m[DG.f];if(!m||m.fin)return;const Y=26,w=10,h=7,sp=2,X=Math.round((320-(m.C*(w+sp)-sp))/2),id=(x,y)=>x+y*m.C;g.globalAlpha=.9;
+function drMap(){const m=DG.m[DG.f];if(!m||m.fin)return;const Y=document.body.classList.contains('tc')?36:26,w=10,h=7,sp=2,X=Math.round((320-(m.C*(w+sp)-sp))/2),id=(x,y)=>x+y*m.C;g.globalAlpha=.9;
  for(let y=0;y<m.R;y++)for(let x=0;x<m.C;x++){const cl=m.cl[id(x,y)],seen=m.sn[x+','+y];let nb=false;
   if(!seen)for(const d in cl.c)if(m.sn[(x+DIRS[d][0])+','+(y+DIRS[d][1])])nb=true;
   if(!seen&&!nb)continue;const px=X+x*(w+sp),py=Y+y*(h+sp);r(px,py,w,h,seen?'#3a4570':'#1c2036');
