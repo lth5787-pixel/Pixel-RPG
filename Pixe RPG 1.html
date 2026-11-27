@@ -413,7 +413,7 @@ if(t>=9){const a=fr/10;for(let i=0;i<3;i++)r(Math.round(Math.cos(a+i*2.09)*11),-
 if(t>=10)r(1,-12,1,2,'#fff');
 }
 function tx(s,x,y,cl,sz){tg.font='700 '+sz*S+'px "Noto Sans KR","Malgun Gothic",sans-serif';tg.textAlign='center';tg.lineWidth=S*1.6;tg.lineJoin='round';tg.strokeStyle='#000';const X=(x-Math.round(cam))*S;tg.strokeText(s,X,y*S);tg.fillStyle=cl;tg.fillText(s,X,y*S)}
-/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.0.81';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
+/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.0.82';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
 const pr=[Math.min(kl.s,3)+'/3',Math.min(col,5)+'/5',Math.min(kl.k,2)+'/2',P.sword?'완료':'0/1',bk>=6?'완료':Math.min(bk,6)+'/6'];
 $('ms').textContent=qWin();
 const ts=$('toast');ts.style.display=msgT>0?'block':'none';ts.textContent=msg}
@@ -1122,9 +1122,9 @@ document.querySelectorAll('.dvb').forEach(b=>b.addEventListener('click',()=>{try
 
 
 
-// ===== 멀티플레이 (방 코드·초대, 같은 맵에서 함께 보기, 친구 거래 / WebRTC·PeerJS, 최대 10명) =====
+// ===== 멀티플레이 (방 코드·초대, 같은 맵에서 함께 보기, 친구 거래 / WebRTC·PeerJS, 최대 100명) =====
 ;(function(){try{
-const URLS=['https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js','https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js'],MAXP=10,PFX='pxrpg1-',AL='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const URLS=['https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js','https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js'],MAXP=100,PFX='pxrpg1-',AL='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const gid=id=>document.getElementById(id),tbar=gid('tb');if(!tbar)return;
 const M={peer:null,host:false,code:'',conns:{},hc:null,id:-1,roster:[],nid:0,tr:null,req:null,out:null,open:false,pp:false,pz:false,st:'idle',loading:false,q:0};
 const OT={};const TIT=Object.assign({},QIT);for(const k in FOOD)TIT['fd:'+k]=[FOOD[k][0],0];
