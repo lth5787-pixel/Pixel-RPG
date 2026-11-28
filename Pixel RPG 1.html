@@ -408,7 +408,7 @@ if(t>=9){const a=fr/10;for(let i=0;i<3;i++)r(Math.round(Math.cos(a+i*2.09)*11),-
 if(t>=10)r(1,-12,1,2,'#fff');
 }
 function tx(s,x,y,cl,sz){tg.font='700 '+sz*S+'px "Noto Sans KR","Malgun Gothic",sans-serif';tg.textAlign='center';tg.lineWidth=S*1.6;tg.lineJoin='round';tg.strokeStyle='#000';const X=(x-Math.round(cam))*S;tg.strokeText(s,X,y*S);tg.fillStyle=cl;tg.fillText(s,X,y*S)}
-/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.1.43';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
+/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.1.44';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
 const pr=[Math.min(kl.s,3)+'/3',Math.min(col,5)+'/5',Math.min(kl.k,2)+'/2',P.sword?'완료':'0/1',bk>=6?'완료':Math.min(bk,6)+'/6'];
 $('ms').textContent=qWin();
 const ts=$('toast');ts.style.display=msgT>0?'block':'none';ts.textContent=msg}
@@ -1331,7 +1331,7 @@ function clientRecv(m){if(!m||typeof m!='object')return;M.seen=Date.now();
  if(m.t=='welcome'){M.id=+m.id;M.st='in';M.rname=String(m.rn||'').slice(0,20);render()}
  else if(m.t=='kick'){toast(String(m.s||'방장이 추방했어요').slice(0,80));leave()}
  else if(m.t=='kicked'){M.kk=M.kk||{};M.kk[+m.id]=1;toast(String(m.s||'').slice(0,80))}
- else if(m.t=='closed'){toast('방장이 나가서 방이 닫혔어요');leave()}
+ else if(m.t=='closed'){toast('방장이 방을 닫았어요. 모두 방에서 나갔어요');leave()}
  else if(m.t=='roster'&&Array.isArray(m.list)){const _old=M.roster.map(r=>r.id),_on=M.roster.slice();M.roster=m.list.slice(0,MAXP).map(r=>({id:+r.id,n:nm(r.n)}));if(_old.length>1){try{M.roster.filter(r=>r.id!==M.id&&!_old.includes(r.id)).forEach(r=>toast('👋 '+r.n+'님이 들어왔어요'));_on.filter(r=>r.id!==M.id&&!M.roster.some(x=>x.id===r.id)&&!(M.kk&&M.kk[r.id])).forEach(r=>toast(r.n+'님이 나갔어요'))}catch(e){}}if(_old.length>1&&M.roster.some(r=>r.id!==M.id&&!_old.includes(r.id)))try{snd('mj')}catch(e){}if(_old.some(id=>id!==M.id&&!M.roster.some(r=>r.id===id)))try{snd('ml')}catch(e){}checkPeers();render();badge()}
  else if(m.t=='chat'){const s=chClean(m.s);if(s)chRecv(+m.from,s)}
  else if(m.t=='msg')handle(+m.from,m.m);
@@ -1377,7 +1377,7 @@ function joinRoom(code,onMiss){code=String(code||'').toUpperCase().replace(/[^A-
    c.on('close',()=>{if(M.peer===p){const q=M.q;toast('방과 연결이 끊어졌어요');leave();if(q)setTimeout(openList,600)}});
    c.on('error',()=>{})});
   p.on('error',e=>{clearTimeout(to);if(M.peer!==p)return;if(onMiss&&e&&e.type=='peer-unavailable'){M.peer=null;M.hc=null;try{p.destroy()}catch(x){}onMiss();return}toast(e&&e.type=='peer-unavailable'?'그런 방이 없어요. 코드를 다시 확인해 주세요':'연결 오류 ('+(e&&e.type)+')');leave()})})}
-function leave(){if(M.st=='in')try{snd('ml')}catch(e){}endTrade(false);for(const id in OT)delete OT[id];const p=M.peer;M.peer=null;M.hc=null;M.conns={};M.roster=[];M.req=null;M.out=null;M.st='idle';M.host=false;M.code='';M.id=-1;M.q=0;M.rname='';try{if(p)p.destroy()}catch(e){}render();badge()}
+function leave(){const wasHost=M.host&&M.st=='in';if(wasHost)bcast({t:'closed'});if(M.st=='in')try{snd('ml')}catch(e){}endTrade(false);for(const id in OT)delete OT[id];const p=M.peer;M.peer=null;M.hc=null;M.conns={};M.roster=[];M.req=null;M.out=null;M.st='idle';M.host=false;M.code='';M.id=-1;M.q=0;M.rname='';try{if(p){if(wasHost)setTimeout(()=>{try{p.destroy()}catch(e){}},500);else p.destroy()}}catch(e){}render();badge()}
 // 빠른 입장: 공개 로비(LB1~LB8)에 자동 입장, 비어 있으면 내가 방장이 돼요
 function quick(i){if(i>8){toast('지금 모든 로비가 가득 찼어요. 잠시 뒤에 다시 시도해 주세요');M.q=0;M.st='idle';render();return}M.q=i;const c='LB'+i;M.st='connecting';M.host=false;render();joinRoom(c,()=>{M.host=true;M.q=i;M.st='connecting';loadPeer(()=>tryHost(0,c))})}
 // ---- 화면 ----
