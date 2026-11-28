@@ -361,7 +361,7 @@ const dk=DG.on?(DG.f==51?0:1):Math.max(0,Math.min(.75,(P.x-1900)/250));if(dk>0){
 const mapDraw=()=>{if(DG.on){if(DG.f!=51)drMap()}else drOw()};if(!(BUF.bld>0))mapDraw();
 if(BUF.bld>0){const px=P.x-Math.round(cam),py=P.y-10,gr=g.createRadialGradient(px,py,8,px,py,40);gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(.5,'rgba(0,0,0,.85)');gr.addColorStop(1,'rgba(0,0,0,1)');g.fillStyle=gr;g.fillRect(0,0,320,180);mapDraw()}
 tg.clearRect(0,0,t.width,t.height);
-tx(sym()+' '+dn(),P.x,P.y-20,'#fff',8);tx('Lv.'+P.lv,P.x,P.y-30,'#ffd24a',8);if(!DG.on)tx('태초 마을 상점',SHOP,GY-46,'#ffd24a',8);
+tx(sym()+' '+dn(),P.x,P.y-20,'#fff',8);tx('Lv.'+P.lv,P.x,P.y-30,'#ffd24a',8);pflag(P.x,P.y-45);if(!DG.on)tx('태초 마을 상점',SHOP,GY-46,'#ffd24a',8);
 const b=en.find(e=>e.k=='b');if(b){tx('마왕',b.x,b.y-74,'#ff8a8a',8)}en.forEach(e=>{if(e.nm&&!(BUF.bld>0))tx(e.nm,e.x,e.y-e.h-12,'#ffb0a0',8)});
 fx.forEach(f=>tx(f.s,f.x,f.y,f.cl,8));
 if(DG.on){dgText();return}owText();if(Math.abs(P.x-SHOP)<48&&!shopOn)tx('Q: 태초 마을 상점 열기',SHOP,GY-56,'#fff',8);tx('태초 마을 (안전 구역)',VE/2,GY+14,'#c8ffc0',7);tx('태초 마을 빵집',BX,GY-56,'#ffd24a',8);if(Math.abs(P.x-BX)<30&&!shopOn&&!qOn)tx('Q: 태초 마을 빵집 열기',BX,GY-68,'#fff',8);tx('태초 마을 대장간',SX,GY-56,'#ffd24a',8);if(Math.abs(P.x-SX)<30&&!shopOn&&!qOn)tx('Q: 대장간 열기',SX,GY-68,'#fff',8);NP.forEach(n=>{tx(n.n,n.x,GY-26,'#fff',7);if(!QS.talk[n.n])tx('!',n.x,GY-34,'#ffd24a',9)});const nn=(!shopOn&&!qOn)?npcNear():null;if(nn)tx('R: '+nn.n+'에게 말 걸기',nn.x,GY-74,'#fff',8);QB.forEach(b=>tx(b[2],b[0],GY-(b[1]=='hall'?46:b[1]=='mine'?42:b[1]=='gate'?82:14),'#ffd24a',8));if(!shopOn&&!qOn){const n=qNear();if(n)tx('Q: '+n[2]+' 들어가기',n[0],GY-60,'#fff',8)}tx('초원 →',VE+14,GY-28,'#ffd24a',8);tx('초원',1300,GY-70,'#9be88a',8);tx('울창한 숲',2700,GY-80,'#9be88a',8)}
@@ -405,8 +405,20 @@ if(t>=8){r(-6,-12,1,2,'#ffd24a');r(5,-12,1,2,'#ffd24a')}
 if(t>=9){const a=fr/10;for(let i=0;i<3;i++)r(Math.round(Math.cos(a+i*2.09)*11),-9+Math.round(Math.sin(a+i*2.09)*7),2,2,'#fff2a0')}
 if(t>=10)r(1,-12,1,2,'#fff');
 }
+/* V.0.1.64 용사 머리 위 국기: 고른 언어의 나라 깃발을 픽셀로 그려요 (ko 한국 · ja 일본 · zh 중국 · en 미국 · th 태국 · vi 베트남) */
+function pflag(x,y){const l=document.documentElement.lang,u=S,X=(x-Math.round(cam))*S-6*u,Y=y*S-4*u,PI=Math.PI;
+const R=(c,a,b,w,h)=>{tg.fillStyle=c;tg.fillRect(X+a*u,Y+b*u,w*u,h*u)};
+const C=(cx,cy,r,c,a0,a1)=>{tg.fillStyle=c;tg.beginPath();tg.arc(X+cx*u,Y+cy*u,r*u,a0,a1);tg.closePath();tg.fill()};
+const St=(cx,cy,r,c)=>{tg.fillStyle=c;tg.beginPath();for(let i=0;i<10;i++){const a=-PI/2+i*PI/5,q=i%2?r*.42:r;tg[i?'lineTo':'moveTo'](X+(cx+Math.cos(a)*q)*u,Y+(cy+Math.sin(a)*q)*u)}tg.closePath();tg.fill()};
+if(l=='ja'){R('#fff',0,0,12,8);C(6,4,2.4,'#d0103a',0,2*PI)}
+else if(l=='zh'){R('#de2910',0,0,12,8);St(3,2.8,1.9,'#ffde00');R('#ffde00',6,.9,.8,.8);R('#ffde00',7,2.1,.8,.8);R('#ffde00',7,3.5,.8,.8);R('#ffde00',6,4.7,.8,.8)}
+else if(l=='en'){for(let i=0;i<8;i++)R(i%2?'#fff':'#b22234',0,i,12,1);R('#3c3b6e',0,0,5.5,4.5)}
+else if(l=='th'){R('#a51931',0,0,12,8);R('#f4f5f8',0,1.3,12,5.4);R('#2d2a4a',0,2.7,12,2.6)}
+else if(l=='vi'){R('#da251d',0,0,12,8);St(6,4.2,2.8,'#ffff00')}
+else{R('#fff',0,0,12,8);C(6,4,2.4,'#cd2e3a',PI,2*PI);C(6,4,2.4,'#0047a0',0,PI);R('#111',1,1,2,.8);R('#111',9,1,2,.8);R('#111',1,6.2,2,.8);R('#111',9,6.2,2,.8)}
+tg.strokeStyle='#000';tg.lineWidth=u*.9;tg.strokeRect(X,Y,12*u,8*u)}
 function tx(s,x,y,cl,sz){tg.font='700 '+sz*S+'px "Noto Sans KR","Malgun Gothic",sans-serif';tg.textAlign='center';tg.lineWidth=S*1.6;tg.lineJoin='round';tg.strokeStyle='#000';const X=(x-Math.round(cam))*S;tg.strokeText(s,X,y*S);tg.fillStyle=cl;tg.fillText(s,X,y*S)}
-/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.1.63';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
+/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.1.71';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
 const pr=[Math.min(kl.s,3)+'/3',Math.min(col,5)+'/5',Math.min(kl.k,2)+'/2',P.sword?'완료':'0/1',bk>=6?'완료':Math.min(bk,6)+'/6'];
 $('ms').textContent=qWin();
 const ts=$('toast');ts.style.display=msgT>0?'block':'none';ts.textContent=msg}
@@ -1326,7 +1338,7 @@ function hostRecv(c,m){if(!m||typeof m!='object')return;c._seen=Date.now();
  if(m.t=='hi'){if(c._id)return;if(M.roster.length>=(M.max||MAXP)){try{c.send({t:'full'})}catch(e){}setTimeout(()=>{try{c.close()}catch(e){}},400);return}
   const id=++M.nid;c._id=id;M.conns[id]=c;M.roster.push({id,n:nm(m.n)});try{c.send({t:'welcome',id,rn:M.rname||'',mx:M.max||MAXP})}catch(e){}toast('👋 '+nm(m.n)+'님이 들어왔어요');try{snd('mj')}catch(e){}pushRoster()}
  else if(m.t=='p'&&c._id){applyPos(c._id,m.d);for(const id in M.conns)if(+id!==c._id)try{M.conns[id].send({t:'p',from:c._id,d:m.d})}catch(e){}}
- else if(m.t=='chat'&&c._id){const s=chClean(m.s),now=Date.now();if(!s||now-(c._ct||0)<400)return;c._ct=now;chRecv(c._id,s);for(const id in M.conns)if(+id!==c._id)try{M.conns[id].send({t:'chat',from:c._id,s})}catch(e){}}
+ else if(m.t=='chat'&&c._id){const s=chClean(m.s),now=Date.now();if(!s||now-(c._ct||0)<400)return;c._ct=now;const l=chLg(m.l);chRecv(c._id,s,l);for(const id in M.conns)if(+id!==c._id)try{M.conns[id].send({t:'chat',from:c._id,s,l})}catch(e){}}
  else if(m.t=='to'&&c._id){const to=+m.to;if(to===0)handle(c._id,m.m);else if(M.conns[to])try{M.conns[to].send({t:'msg',from:c._id,m:m.m})}catch(e){}}}
 function drop(c){const id=c._id;if(!id||!M.conns[id])return;delete M.conns[id];const n=nameOf(id);M.roster=M.roster.filter(r=>r.id!==id);checkPeers();toast(n+'님이 나갔어요');try{snd('ml')}catch(e){}pushRoster()}
 function clientRecv(m){if(!m||typeof m!='object')return;M.seen=Date.now();
@@ -1335,7 +1347,7 @@ function clientRecv(m){if(!m||typeof m!='object')return;M.seen=Date.now();
  else if(m.t=='kicked'){M.kk=M.kk||{};M.kk[+m.id]=1;toast(String(m.s||'').slice(0,80))}
  else if(m.t=='closed'){toast('방장이 방을 닫았어요. 모두 방에서 나갔어요');leave()}
  else if(m.t=='roster'&&Array.isArray(m.list)){const _old=M.roster.map(r=>r.id),_on=M.roster.slice();M.roster=m.list.slice(0,MAXP).map(r=>({id:+r.id,n:nm(r.n)}));if(_old.length>1){try{M.roster.filter(r=>r.id!==M.id&&!_old.includes(r.id)).forEach(r=>toast('👋 '+r.n+'님이 들어왔어요'));_on.filter(r=>r.id!==M.id&&!M.roster.some(x=>x.id===r.id)&&!(M.kk&&M.kk[r.id])).forEach(r=>toast(r.n+'님이 나갔어요'))}catch(e){}}if(_old.length>1&&M.roster.some(r=>r.id!==M.id&&!_old.includes(r.id)))try{snd('mj')}catch(e){}if(_old.some(id=>id!==M.id&&!M.roster.some(r=>r.id===id)))try{snd('ml')}catch(e){}checkPeers();render();badge()}
- else if(m.t=='chat'){const s=chClean(m.s);if(s)chRecv(+m.from,s)}
+ else if(m.t=='chat'){const s=chClean(m.s);if(s)chRecv(+m.from,s,chLg(m.l))}
  else if(m.t=='msg')handle(+m.from,m.m);
  else if(m.t=='p')applyPos(+m.from,m.d);
  else if(m.t=='full'){if(M.q){toast('방이 가득 찼어요 (최대 '+MAXP+'명)');leave();openList();return}toast('방이 가득 찼어요 (최대 '+MAXP+'명)');leave()}}
@@ -1462,32 +1474,50 @@ setInterval(()=>{if(M.open&&M.st=='in'&&!M.tr)render()},3000);
 
 // ---- 채팅 (PC: T키 / 모바일: 💬 버튼) ----
 const CB={};let chHint=0;
+const chLg=l=>/^(ko|ja|zh|en|th|vi)$/.test(l)?l:'';
 const chClean=v=>String(v==null?'':v).replace(/[\u0000-\u001f<>]/g,'').trim().slice(0,60);
 const chStyle=document.createElement('style');
-chStyle.textContent='body:not(.tc) #chb{display:none!important}#cl{position:fixed;left:8px;bottom:calc(70px + env(safe-area-inset-bottom,0px));z-index:4;max-width:min(380px,62vw);max-height:40vh;overflow:hidden;display:flex;flex-direction:column;gap:2px;pointer-events:none;font-size:13px;line-height:1.35;color:#fff}body.tc #cl{bottom:calc(130px + env(safe-area-inset-bottom,0px));max-width:48vw;font-size:12px}#cl div{background:rgba(0,0,0,.55);padding:3px 8px;border-radius:5px;overflow-wrap:anywhere;white-space:normal}#cl div.o{display:none}#cl.on div.o{display:block}#cb{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:14;width:min(420px,calc(100vw - 16px));display:none;gap:6px;padding:8px;background:rgba(20,24,40,.97);border:2px solid #5a6aa8}#cb.on{display:flex}#cb input{flex:1;min-width:0;width:auto;font-size:16px;padding:8px}#cb button{padding:8px 12px;font-size:14px}#chb{display:none;position:fixed;right:58px;top:calc(6px + env(safe-area-inset-top,0px));z-index:7;width:44px;height:36px;padding:0;font-size:18px;line-height:1;opacity:.9}#chb{display:block}body:not(.tc) #chb{right:calc(min(300px,100vw - 16px) + 14px);top:calc(8px + env(safe-area-inset-top,0px))}body.tc #hud{max-width:calc(100vw - 112px)!important}';
+chStyle.textContent='body:not(.tc) #chb{display:none!important}#cl{position:fixed;left:8px;bottom:calc(70px + env(safe-area-inset-bottom,0px));z-index:4;max-width:min(380px,62vw);max-height:40vh;overflow:hidden;display:flex;flex-direction:column-reverse;gap:2px;pointer-events:none;font-size:13px;line-height:1.35;color:#fff}body.tc #cl{bottom:calc(130px + env(safe-area-inset-bottom,0px));max-width:48vw;font-size:12px}#cl div{background:rgba(0,0,0,.55);padding:3px 8px;border-radius:5px;overflow-wrap:anywhere;white-space:normal}#cl div.o{display:none}#cl.on div.o{display:block}#cb{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:14;width:min(420px,calc(100vw - 16px));display:none;gap:6px;padding:8px;background:rgba(20,24,40,.97);border:2px solid #5a6aa8}#cb.on{display:flex}#cb input{flex:1;min-width:0;width:auto;font-size:16px;padding:8px}#cb button{padding:8px 12px;font-size:14px}#chb{display:none;position:fixed;right:58px;top:calc(6px + env(safe-area-inset-top,0px));z-index:7;width:44px;height:36px;padding:0;font-size:18px;line-height:1;opacity:.9}#chb{display:block}body:not(.tc) #chb{right:calc(min(300px,100vw - 16px) + 14px);top:calc(8px + env(safe-area-inset-top,0px))}body.tc #hud{max-width:calc(100vw - 112px)!important}';
+chStyle.textContent+='#chh{position:fixed;left:50%;top:calc(50% - 40px);transform:translate(-50%,-100%);z-index:13;width:min(420px,calc(100vw - 16px));max-height:min(300px,38vh);display:none;flex-direction:column;background:rgba(20,24,40,.97);border:2px solid #5a6aa8;color:#fff;font-size:13px;line-height:1.4}#chh.on{display:flex}#chh h4{margin:0;padding:6px 10px;background:#2a3358;font-size:14px}#chl{overflow-y:auto;padding:6px 10px;display:flex;flex-direction:column;gap:3px}#chl div{overflow-wrap:anywhere}#chl .cf,#cl .cf{display:inline-block;vertical-align:-1px;margin-right:4px}#chl .cf svg,#cl .cf svg{display:block}#chl i{opacity:.55;font-style:normal;font-size:11px;margin-right:4px}';
 document.head.appendChild(chStyle);
 const chCl=el('div');chCl.id='cl';document.body.appendChild(chCl);
 const chBar=el('div');chBar.id='cb';
 const chIn=document.createElement('input');chIn.type='text';chIn.maxLength=60;chIn.placeholder='채팅 입력 (Enter 전송 · Esc 닫기)';chIn.autocomplete='off';chIn.setAttribute('enterkeyhint','send');
 const chGo=btn('전송',()=>chSend()),chX=btn('✕',()=>chClose());
-chBar.append(chIn,chGo,chX);document.body.appendChild(chBar);
+const chHB=btn('📜 기록',()=>chHist());
+chBar.append(chIn,chGo,chHB,chX);document.body.appendChild(chBar);
+/* V.0.1.67 채팅 기록 창: 지금까지 친 채팅을 전부(최대 200개) 보여줘요 */
+const CH=[];
+const chHW=el('div');chHW.id='chh';const chHT=el('h4','','채팅 기록'),chHL=el('div');chHL.id='chl';chHW.append(chHT,chHL);document.body.appendChild(chHW);
+function chFlag(l){const st=(cx,cy,r,c)=>{let p='';for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,q=i%2?r*.42:r;p+=(i?'L':'M')+(cx+Math.cos(a)*q).toFixed(2)+' '+(cy+Math.sin(a)*q).toFixed(2)}return '<path d="'+p+'Z" fill="'+c+'"/>'},R=(x,y,w,h,c)=>'<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+c+'"/>';let g='';
+if(l=='ko')g=R(0,0,12,8,'#fff')+'<path d="M3.6 4A2.4 2.4 0 0 1 8.4 4Z" fill="#cd2e3a"/><path d="M3.6 4A2.4 2.4 0 0 0 8.4 4Z" fill="#0047a0"/>'+R(1,1,2,.8,'#111')+R(9,1,2,.8,'#111')+R(1,6.2,2,.8,'#111')+R(9,6.2,2,.8,'#111');
+else if(l=='ja')g=R(0,0,12,8,'#fff')+'<circle cx="6" cy="4" r="2.4" fill="#d0103a"/>';
+else if(l=='zh')g=R(0,0,12,8,'#de2910')+st(3,2.8,1.9,'#ffde00')+R(6,.9,.8,.8,'#ffde00')+R(7,2.1,.8,.8,'#ffde00')+R(7,3.5,.8,.8,'#ffde00')+R(6,4.7,.8,.8,'#ffde00');
+else if(l=='en'){for(let i=0;i<8;i++)g+=R(0,i,12,1,i%2?'#fff':'#b22234');g+=R(0,0,5.5,4.5,'#3c3b6e')}
+else if(l=='th')g=R(0,0,12,8,'#a51931')+R(0,1.3,12,5.4,'#f4f5f8')+R(0,2.7,12,2.6,'#2d2a4a');
+else if(l=='vi')g=R(0,0,12,8,'#da251d')+st(6,4.2,2.8,'#ffff00');
+else return null;
+const sp=document.createElement('span');sp.className='cf';sp.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 8" width="15" height="10">'+g+'<rect width="12" height="8" fill="none" stroke="#000" stroke-width=".7"/></svg>';return sp}
+function chHRender(){chHL.textContent='';if(!CH.length){chHL.appendChild(el('div','','아직 채팅이 없어요.'));return}CH.forEach(c=>{const d=el('div'),tm=el('i','',new Date(c.t).toTimeString().slice(0,5)),b=el('b','',c.n+' ');b.style.color=c.id==='me'?'#9fe8ff':'#ffd24a';const fl=chFlag(c.l);d.append(tm);if(fl)d.append(fl);d.append(b,document.createTextNode(c.s));chHL.appendChild(d)});chHL.scrollTop=chHL.scrollHeight}
+function chHist(){const on=!chHW.classList.contains('on');chHW.classList.toggle('on',on);if(on)chHRender();try{chIn.focus()}catch(e){}}
 ['keydown','keyup','keypress'].forEach(k=>chBar.addEventListener(k,e=>e.stopPropagation()));
 chIn.addEventListener('keydown',e=>{if(e.key=='Enter'&&!e.isComposing){e.preventDefault();chSend()}else if(e.key=='Escape'){e.preventDefault();chClose()}});
 const chB=el('button','','💬');chB.id='chb';chB.setAttribute('aria-label','채팅');chB.onclick=()=>{chBar.classList.contains('on')?chClose():chOpen()};document.body.appendChild(chB);
 function chOpen(){if(chBar.classList.contains('on')){chIn.focus();return}if(!running()||ended||shopOn||qOn||M.open||!P)return;keys={};chBar.classList.add('on');chCl.classList.add('on');chIn.value='';chIn.focus()}
-function chClose(){chBar.classList.remove('on');chCl.classList.remove('on');try{chIn.blur()}catch(e){}keys={}}
-function chAdd(id,n,s){(CB[id]=CB[id]||[]).push({s,t:Date.now()});if(CB[id].length>6)CB[id].shift();const d=el('div'),b=el('b','',n+' ');b.style.color=id==='me'?'#9fe8ff':'#ffd24a';d.append(b,document.createTextNode(s));d._t=Date.now();chCl.appendChild(d);while(chCl.children.length>14)chCl.removeChild(chCl.firstChild)}
-function chRecv(from,s){chAdd(from,nameOf(from),s)}
-function chSend(){const s=chClean(chIn.value);chIn.value='';chClose();if(!s)return;
- if(M.st=='in'){if(M.host)bcast({t:'chat',from:0,s});else if(M.hc)try{M.hc.send({t:'chat',s})}catch(e){}}
+function chPurge(){const n=Date.now();for(const d of[...chCl.children])if(n-d._t>8000)chCl.removeChild(d)}/* V.0.1.66 8초 지난 채팅은 아예 지워서, 다시 채팅할 때 옛 채팅이 한꺼번에 되살아나지 않아요 */
+function chClose(){chBar.classList.remove('on');chCl.classList.remove('on');try{chIn.blur()}catch(e){}keys={};chPurge();chHW.classList.remove('on')}
+function chAdd(id,n,s,l){CH.push({id,n,s,t:Date.now(),l:id==='me'?document.documentElement.lang:chLg(l)});if(CH.length>200)CH.shift();if(chHW.classList.contains('on'))chHRender();(CB[id]=CB[id]||[]).push({s,t:Date.now()});if(CB[id].length>6)CB[id].shift();const d=el('div'),b=el('b','',n+' ');b.style.color=id==='me'?'#9fe8ff':'#ffd24a';const fl=chFlag(id==='me'?document.documentElement.lang:chLg(l));if(fl)d.append(fl);d.append(b,document.createTextNode(s));d._t=Date.now();chCl.appendChild(d);while(chCl.children.length>6)chCl.removeChild(chCl.firstChild)}/* V.0.1.65 첫 채팅이 맨 아래, 새 채팅은 위로 쌓이고 6개를 넘으면 가장 오래된 것부터 하나씩 지워요 */
+function chRecv(from,s,l){chAdd(from,nameOf(from),s,l)}
+function chSend(){const s=chClean(chIn.value);chIn.value='';if(!s){chClose();return}/* V.0.1.70 보내도 입력창이 닫히지 않아요(빈 칸에서 Enter · Esc · ✕ 로 닫기) */
+ if(M.st=='in'){if(M.host)bcast({t:'chat',from:0,s,l:document.documentElement.lang});else if(M.hc)try{M.hc.send({t:'chat',s,l:document.documentElement.lang})}catch(e){}}
  else if(!chHint){chHint=1;toast('지금은 나만 볼 수 있어요. 🤝 멀티에 입장하면 다른 용사에게도 보여요')}
- chAdd('me',myName(),s)}
+ chAdd('me',myName(),s);try{chIn.focus()}catch(e){}}
 addEventListener('keydown',e=>{if(e.code!='KeyT'||e.repeat||e.ctrlKey||e.metaKey||e.altKey)return;const t=e.target&&e.target.tagName;if(t=='INPUT'||t=='TEXTAREA')return;e.preventDefault();chOpen()});
-setInterval(()=>{const n=Date.now();for(const d of chCl.children)d.classList.toggle('o',n-d._t>8000);chB.style.visibility=running()?'visible':'hidden'},500);
+setInterval(()=>{const n=Date.now();if(!chBar.classList.contains('on'))chPurge();chB.style.visibility=running()?'visible':'hidden'},500);
 const chShort=s=>s.length>28?s.slice(0,28)+'…':s;
 function chBub(){if(!P||DG.on)return;const now=Date.now();
- const put=(l,x,y,c)=>{if(!l)return;l.filter(b=>now-b.t<6000).slice(-3).forEach((b,i)=>{const T=i*10;b.ry=b.ry==null?T:b.ry+(T-b.ry)*.3;if(Math.abs(T-b.ry)<.2)b.ry=T;const age=now-b.t;tg.globalAlpha=age>5500?Math.max(0,(6000-age)/500):1;tx(chShort(b.s),x,y-b.ry,c,8);tg.globalAlpha=1})};
- put(CB.me,P.x,P.y-40,'#aef');
+ const put=(l,x,y,c)=>{if(!l)return;l.filter(b=>now-b.t<6000).slice(-2).forEach((b,i)=>{const T=i*10;b.ry=b.ry==null?T:b.ry+(T-b.ry)*.3;if(Math.abs(T-b.ry)<.2)b.ry=T;const age=now-b.t;tg.globalAlpha=age>5500?Math.max(0,(6000-age)/500):1;tx(chShort(b.s),x,y-b.ry,c,8);tg.globalAlpha=1})};
+ put(CB.me,P.x,P.y-54,'#aef');
  if(M.st=='in')for(const id in OT){const o=OT[id];if(now-o.t>10000||o.ar!==P.ar)continue;put(CB[id],o.x,o.y-40,'#fff')}}
 window.__MPTEST&&window.__MPTEST({M,send,hostRoom,joinRoom,leave,handle,doLock,edit,startTrade,render,openP});
 }catch(e){console.error('mp',e)}})();
@@ -1717,6 +1747,9 @@ const addTr=(ko,o)=>{const m={en:E,ja:J,zh:Z,th:TH,vi:VI};for(const l in m)m[l][
 addTr('전송',{en:'Send',ja:'送信',zh:'发送',th:'ส่ง',vi:'Gửi'});
 addTr('채팅 입력 (Enter 전송 · Esc 닫기)',{en:'Type a chat message (Enter to send · Esc to close)',ja:'チャット入力 (Enterで送信 · Escで閉じる)',zh:'输入聊天内容 (Enter 发送 · Esc 关闭)',th:'พิมพ์ข้อความแชต (Enter ส่ง · Esc ปิด)',vi:'Nhập tin nhắn (Enter gửi · Esc đóng)'});
 addTr('T  (Enter 전송 · Esc 닫기)',{en:'T  (Enter to send · Esc to close)',ja:'T  (Enterで送信 · Escで閉じる)',zh:'T  (Enter 发送 · Esc 关闭)',th:'T  (Enter ส่ง · Esc ปิด)',vi:'T  (Enter gửi · Esc đóng)'});
+addTr('📜 기록',{en:'📜 Log',ja:'📜 履歴',zh:'📜 记录',th:'📜 ประวัติ',vi:'📜 Lịch sử'});
+addTr('채팅 기록',{en:'Chat History',ja:'チャット履歴',zh:'聊天记录',th:'ประวัติแชต',vi:'Lịch sử trò chuyện'});
+addTr('아직 채팅이 없어요.',{en:'No chat yet.',ja:'まだチャットがありません。',zh:'还没有聊天内容。',th:'ยังไม่มีแชต',vi:'Chưa có tin nhắn nào.'});
 addTr('🌐 언어 설정',{en:'🌐 Language',ja:'🌐 言語設定',zh:'🌐 语言设置',th:'🌐 ภาษา',vi:'🌐 Ngôn ngữ'});
 const hn=k=>(k.match(/[가-힣]/g)||[]).length;
 const elig=k=>k=='내구도'||k.replace(/\s/g,'').length>=4||(hn(k)>=3&&/\s/.test(k.trim()))||(hn(k)>=2&&(/[^가-힣\s]/.test(k)||k!==k.trim()));
