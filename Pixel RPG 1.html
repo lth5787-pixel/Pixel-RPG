@@ -985,7 +985,7 @@ function drOw(){const M=OWM,k=M.w/OW,cur=P.x<VE?0:P.x<2000?1:P.x<3340+FD?2:3;g.g
  [SHOP,BX,SX].forEach(v=>r(M.x+v*k,M.y,1,M.h,'#ffd24a'));r(M.x+(3340+FD)*k,M.y-1,2,M.h+2,'#ff5a5a');
  if((fr>>4)%2==0){const px=M.x+Math.max(0,Math.min(OW,P.x))*k;r(px-1,M.y-2,3,M.h+4,'#fff')}g.globalAlpha=1}
 function owText(){const cx=Math.round(cam),M=OWM,k=M.w/OW,cur=P.x<VE?0:P.x<2000?1:P.x<3340+FD?2:3;
- M.a.forEach((a,i)=>{if(i==3)return;tx(a[0],cx+M.x+(a[1]+a[2])/2*k,M.y+M.h+9,i==cur?'#ffd24a':'#aab',6)})}
+ M.a.forEach((a,i)=>{tx(a[0],cx+M.x+(a[1]+a[2])/2*k,M.y+M.h+9,i==cur?'#ffd24a':'#aab',6)})}
 function drMap(){const m=DG.m[DG.f];if(!m||m.fin)return;const Y=(document.body.classList.contains('tc')?46:36)+(fsEl()?10:0),w=10,h=7,sp=2,X=Math.round((320-(m.C*(w+sp)-sp))/2),id=(x,y)=>x+y*m.C;g.globalAlpha=.9;
  for(let y=0;y<m.R;y++)for(let x=0;x<m.C;x++){const cl=m.cl[id(x,y)],seen=m.sn[x+','+y];let nb=false;
   if(!seen)for(const d in cl.c)if(m.sn[(x+DIRS[d][0])+','+(y+DIRS[d][1])])nb=true;
