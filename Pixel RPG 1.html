@@ -405,7 +405,7 @@ if(t>=9){const a=fr/10;for(let i=0;i<3;i++)r(Math.round(Math.cos(a+i*2.09)*11),-
 if(t>=10)r(1,-12,1,2,'#fff');
 }
 function tx(s,x,y,cl,sz){tg.font='700 '+sz*S+'px "Noto Sans KR","Malgun Gothic",sans-serif';tg.textAlign='center';tg.lineWidth=S*1.6;tg.lineJoin='round';tg.strokeStyle='#000';const X=(x-Math.round(cam))*S;tg.strokeText(s,X,y*S);tg.fillStyle=cl;tg.fillText(s,X,y*S)}
-/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.1.45';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
+/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.1.46';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
 const pr=[Math.min(kl.s,3)+'/3',Math.min(col,5)+'/5',Math.min(kl.k,2)+'/2',P.sword?'완료':'0/1',bk>=6?'완료':Math.min(bk,6)+'/6'];
 $('ms').textContent=qWin();
 const ts=$('toast');ts.style.display=msgT>0?'block':'none';ts.textContent=msg}
@@ -1315,16 +1315,16 @@ function bcast(m){for(const id in M.conns)try{M.conns[id].send(m)}catch(e){}}
 function pushRoster(){render();badge();bcast({t:'roster',list:M.roster})}
 function checkPeers(){for(const id in OT)if(!M.roster.some(r=>r.id===+id))delete OT[id];if(M.tr&&!M.roster.some(r=>r.id===M.tr.peer))endTrade(true);if(M.req&&!M.roster.some(r=>r.id===M.req.from))M.req=null;if(M.out!=null&&!M.roster.some(r=>r.id===M.out))M.out=null}
 function hostRecv(c,m){if(!m||typeof m!='object')return;c._seen=Date.now();
- if(m.t=='info'){try{c.send({t:'info',name:M.rname||'',n:M.roster.length,max:MAXP})}catch(e){}return}
+ if(m.t=='info'){try{c.send({t:'info',name:M.rname||'',n:M.roster.length,max:M.max||MAXP})}catch(e){}return}
  if(m.t=='bye'){if(c._id){drop(c);try{c.close()}catch(e){}}return}
- if(m.t=='hi'){if(c._id)return;if(M.roster.length>=MAXP){try{c.send({t:'full'})}catch(e){}setTimeout(()=>{try{c.close()}catch(e){}},400);return}
-  const id=++M.nid;c._id=id;M.conns[id]=c;M.roster.push({id,n:nm(m.n)});try{c.send({t:'welcome',id,rn:M.rname||''})}catch(e){}toast('👋 '+nm(m.n)+'님이 들어왔어요');try{snd('mj')}catch(e){}pushRoster()}
+ if(m.t=='hi'){if(c._id)return;if(M.roster.length>=(M.max||MAXP)){try{c.send({t:'full'})}catch(e){}setTimeout(()=>{try{c.close()}catch(e){}},400);return}
+  const id=++M.nid;c._id=id;M.conns[id]=c;M.roster.push({id,n:nm(m.n)});try{c.send({t:'welcome',id,rn:M.rname||'',mx:M.max||MAXP})}catch(e){}toast('👋 '+nm(m.n)+'님이 들어왔어요');try{snd('mj')}catch(e){}pushRoster()}
  else if(m.t=='p'&&c._id){applyPos(c._id,m.d);for(const id in M.conns)if(+id!==c._id)try{M.conns[id].send({t:'p',from:c._id,d:m.d})}catch(e){}}
  else if(m.t=='chat'&&c._id){const s=chClean(m.s),now=Date.now();if(!s||now-(c._ct||0)<400)return;c._ct=now;chRecv(c._id,s);for(const id in M.conns)if(+id!==c._id)try{M.conns[id].send({t:'chat',from:c._id,s})}catch(e){}}
  else if(m.t=='to'&&c._id){const to=+m.to;if(to===0)handle(c._id,m.m);else if(M.conns[to])try{M.conns[to].send({t:'msg',from:c._id,m:m.m})}catch(e){}}}
 function drop(c){const id=c._id;if(!id||!M.conns[id])return;delete M.conns[id];const n=nameOf(id);M.roster=M.roster.filter(r=>r.id!==id);checkPeers();toast(n+'님이 나갔어요');try{snd('ml')}catch(e){}pushRoster()}
 function clientRecv(m){if(!m||typeof m!='object')return;M.seen=Date.now();
- if(m.t=='welcome'){M.id=+m.id;M.st='in';M.rname=String(m.rn||'').slice(0,20);render()}
+ if(m.t=='welcome'){M.id=+m.id;M.st='in';M.rname=String(m.rn||'').slice(0,20);M.max=Math.max(2,Math.min(MAXP,(m.mx|0)||MAXP));render()}
  else if(m.t=='kick'){toast(String(m.s||'방장이 추방했어요').slice(0,80));leave()}
  else if(m.t=='kicked'){M.kk=M.kk||{};M.kk[+m.id]=1;toast(String(m.s||'').slice(0,80))}
  else if(m.t=='closed'){toast('방장이 방을 닫았어요. 모두 방에서 나갔어요');leave()}
@@ -1343,19 +1343,24 @@ setInterval(()=>{const now=Date.now();
  else if(M.st=='in'&&M.hc&&M.seen&&now-M.seen>40000){const q=M.q;toast('방과 연결이 끊어졌어요');leave();if(q)setTimeout(openList,600)}},5000);
 const LBN=10;
 function openList(){M.st='list';M.rooms=null;render();scanRooms()}
-function scanRooms(){if(M.scan)return;M.rooms=[];M.free=[];M.scanning=true;render();
+function scanRooms(cb){if(typeof cb=='function'){M.scb=M.scb||[];M.scb.push(cb)}if(M.scan)return;M.rooms=[];M.free=[];M.scanning=true;render();
  loadPeer(()=>{const p=new Peer(Object.assign({debug:0},ICE));M.scan=p;const found=[],empty=[],pend=new Set();let done=false,tm=0;
-  const finish=()=>{if(done)return;done=true;clearTimeout(tm);try{p.destroy()}catch(e){}M.scan=null;M.scanning=false;M.rooms=found.sort((a,b)=>a.slot-b.slot);M.free=empty.sort((a,b)=>a-b);if(M.st=='list')render()};
+  const finish=()=>{if(done)return;done=true;clearTimeout(tm);try{p.destroy()}catch(e){}M.scan=null;M.scanning=false;M.rooms=found.sort((a,b)=>a.slot-b.slot);M.free=empty.sort((a,b)=>a-b);if(M.st=='list')render();const q=M.scb||[];M.scb=null;q.forEach(f=>{try{f()}catch(e){}})};
   tm=setTimeout(finish,6000);
   p.on('open',()=>{for(let i=1;i<=LBN;i++){pend.add(i);const c=p.connect(PFX+'LB'+i,{serialization:'json',reliable:true});
    c.on('open',()=>{try{c.send({t:'info'})}catch(e){}});
-   c.on('data',m=>{if(m&&m.t=='info'&&pend.has(i)){pend.delete(i);found.push({slot:i,name:String(m.name||'').replace(/[\u0000-\u001f<>]/g,'').slice(0,12),n:Math.max(0,m.n|0),max:(m.max|0)||MAXP});try{c.close()}catch(e){}if(!pend.size)finish()}});
+   c.on('data',m=>{if(m&&m.t=='info'&&pend.has(i)){pend.delete(i);found.push({slot:i,name:String(m.name||'').replace(/[\u0000-\u001f<>]/g,'').slice(0,16),n:Math.max(0,m.n|0),max:(m.max|0)||MAXP});try{c.close()}catch(e){}if(!pend.size)finish()}});
    c.on('error',()=>{})}});
   p.on('error',e=>{if(e&&e.type=='peer-unavailable'){const x=/LB(\d+)/.exec(String(e.message||''));if(x&&pend.has(+x[1])){pend.delete(+x[1]);empty.push(+x[1]);if(!pend.size)finish()}return}finish()})})}
 function joinListed(slot){M.q=slot;joinRoom('LB'+slot,()=>{toast('그 방은 이미 사라졌어요');leave();openList()})}
-function createPublic(name){const nmv=String(name||'').replace(/[\u0000-\u001f<>]/g,'').trim().slice(0,12)||(myName()+'님의 방');
- if(!M.free||!M.free.length){toast('빈 자리가 없어요. 새로고침 해 보세요');return}
- const slot=M.free[0];M.rname=nmv;M.q=slot;M.st='connecting';M.host=true;render();loadPeer(()=>tryHost(0,'LB'+slot))}
+function openSetup(){if(M.sm==null)M.sm=8;M.st='setup';render()}
+function createRoom(){const nmv=nm(M.sn||'').slice(0,16);const rn=(M.sn||'').replace(/[\u0000-\u001f<>]/g,'').trim().slice(0,16)||(myName()+'님의 방');M.rname=rn;M.max=Math.max(2,Math.min(MAXP,M.sm||8));
+ if(M.sp===false){M.q=0;hostRoom();return}
+ M.st='connecting';M.host=true;render();
+ scanRooms(()=>{if(M.st!='connecting'||!M.host)return;
+  if(!M.free||!M.free.length){toast('공개 방 자리가 없어요. 비공개로 열거나 잠시 뒤에 다시 해 주세요');M.host=false;M.st='setup';render();return}
+  const slot=M.free[0];M.q=slot;loadPeer(()=>tryHost(0,'LB'+slot))})}
+setInterval(()=>{if(M.open&&M.st=='list'&&!M.scan&&!M.scanning)scanRooms()},8000);
 function loadPeer(cb,i){i=i||0;if(window.Peer)return cb();if(M.loading)return;M.loading=true;const s=document.createElement('script');s.src=URLS[i];s.onload=()=>{M.loading=false;cb()};s.onerror=()=>{M.loading=false;if(i+1<URLS.length)loadPeer(cb,i+1);else{toast('연결 모듈을 불러오지 못했어요. 인터넷을 확인해 주세요');M.st='idle';render()}};document.head.appendChild(s)}
 function hostRoom(){M.st='connecting';M.host=true;render();loadPeer(()=>tryHost(0))}
 function tryHost(n,fix){const code=fix||Array.from({length:5},()=>AL[Math.floor(Math.random()*AL.length)]).join('');const p=new Peer(PFX+code,Object.assign({debug:0},ICE));M.peer=p;
@@ -1373,7 +1378,7 @@ function joinRoom(code,onMiss){code=String(code||'').toUpperCase().replace(/[^A-
    c.on('close',()=>{if(M.peer===p){const q=M.q;toast('방과 연결이 끊어졌어요');leave();if(q)setTimeout(openList,600)}});
    c.on('error',()=>{})});
   p.on('error',e=>{clearTimeout(to);if(M.peer!==p)return;if(onMiss&&e&&e.type=='peer-unavailable'){M.peer=null;M.hc=null;try{p.destroy()}catch(x){}onMiss();return}toast(e&&e.type=='peer-unavailable'?'그런 방이 없어요. 코드를 다시 확인해 주세요':'연결 오류 ('+(e&&e.type)+')');leave()})})}
-function leave(){const wasHost=M.host&&M.st=='in';if(wasHost)bcast({t:'closed'});if(M.st=='in')try{snd('ml')}catch(e){}endTrade(false);for(const id in OT)delete OT[id];const p=M.peer;M.peer=null;M.hc=null;M.conns={};M.roster=[];M.req=null;M.out=null;M.st='idle';M.host=false;M.code='';M.id=-1;M.q=0;M.rname='';try{if(p){if(wasHost)setTimeout(()=>{try{p.destroy()}catch(e){}},500);else p.destroy()}}catch(e){}render();badge()}
+function leave(){const wasHost=M.host&&M.st=='in';if(wasHost)bcast({t:'closed'});if(M.st=='in')try{snd('ml')}catch(e){}endTrade(false);for(const id in OT)delete OT[id];const p=M.peer;M.peer=null;M.hc=null;M.conns={};M.roster=[];M.req=null;M.out=null;M.st='idle';M.host=false;M.code='';M.id=-1;M.q=0;M.rname='';M.max=0;try{if(p){if(wasHost)setTimeout(()=>{try{p.destroy()}catch(e){}},500);else p.destroy()}}catch(e){}render();badge()}
 // 빠른 입장: 공개 로비(LB1~LB8)에 자동 입장, 비어 있으면 내가 방장이 돼요
 function quick(i){if(i>8){toast('지금 모든 로비가 가득 찼어요. 잠시 뒤에 다시 시도해 주세요');M.q=0;M.st='idle';render();return}M.q=i;const c='LB'+i;M.st='connecting';M.host=false;render();joinRoom(c,()=>{M.host=true;M.q=i;M.st='connecting';loadPeer(()=>tryHost(0,c))})}
 // ---- 화면 ----
@@ -1382,7 +1387,7 @@ function render(){syncPause();pn.innerHTML='';if(!M.open)return;
  const h=el('div','r');h.append(el('b','','🤝 멀티플레이 (빌드 mp5)'),btn('✕',closeP));pn.appendChild(h);
  if(M.st=='idle'){
   pn.appendChild(el('div','h','빠른 입장을 누르면 지금 열려 있는 방 목록이 보이고, 마음에 드는 방에 들어가거나 방 이름을 정해 새 방을 만들 수 있어요. 방 코드로 친구와 연결할 수도 있어요. 같은 맵(마을·초원·숲·루미나)에 있으면 서로 보이고, 재료와 코인을 교환할 수 있어요. 최대 '+MAXP+'명, 인터넷이 필요해요. 몬스터는 각자 따로예요.'));
-  pn.appendChild(btn('🌐 빠른 입장 (멀티 중인 다른 용사와 만나기)',openList));pn.appendChild(btn('🏠 방 만들기',hostRoom));
+  pn.appendChild(btn('🌐 빠른 입장 (멀티 중인 다른 용사와 만나기)',openList));pn.appendChild(btn('🏠 방 만들기',openSetup));
   const r=el('div','r'),i=el('input');i.placeholder='친구 방 코드';i.maxLength=8;i.autocomplete='off';i.autocapitalize='characters';
   r.append(i,btn('입장',()=>joinRoom(i.value)));pn.appendChild(r);return}
  if(M.st=='list'){
@@ -1390,11 +1395,17 @@ function render(){syncPause();pn.innerHTML='';if(!M.open)return;
   if(M.scanning)pn.appendChild(el('div','h','방을 찾는 중이에요…'));
   else if(!M.rooms||!M.rooms.length)pn.appendChild(el('div','h','지금 열려 있는 방이 없어요. 아래에서 새 방을 만들어 보세요!'));
   else M.rooms.forEach(rm=>{const r=el('div','r'),full=rm.n>=rm.max;r.append(el('span','','🏠 '+(rm.name||('방 '+rm.slot))+' · '+rm.n+'/'+rm.max+'명'+(full?' (가득 참)':'')),btn(full?'가득 참':'입장',()=>joinListed(rm.slot),full));pn.appendChild(r)});
-  const r2=el('div','r');r2.append(btn('🔄 새로고침',scanRooms),btn('← 뒤로',()=>{M.st='idle';render()}));pn.appendChild(r2);
-  pn.appendChild(el('div','h','새 방 만들기'));
-  const r3=el('div','r'),ni=el('input');ni.placeholder='방 이름 (최대 12자)';ni.maxLength=12;ni.autocomplete='off';r3.append(ni,btn('만들기',()=>createPublic(ni.value)));pn.appendChild(r3);return}
+  const r2=el('div','r');r2.append(btn('🔄 새로고침',()=>scanRooms()),btn('← 뒤로',()=>{M.st='idle';render()}));pn.appendChild(r2);
+  pn.appendChild(btn('🏠 방 만들기',openSetup));return}
+ if(M.st=='setup'){
+  pn.appendChild(el('div','h','방을 열기 전에 방 이름과 인원수를 정해 주세요.'));
+  const rn=el('div','r'),ni=el('input');ni.placeholder='방 이름 (최대 16자)';ni.maxLength=16;ni.autocomplete='off';ni.value=M.sn||'';ni.oninput=()=>{M.sn=ni.value};rn.append(el('span','','방 이름'),ni);pn.appendChild(rn);
+  const rc=el('div','r'),cv=M.sm||8,st=d=>()=>{M.sm=Math.max(2,Math.min(MAXP,cv+d));render()};
+  rc.append(el('span','','최대 인원 · '+cv+'명'),btn('−10',st(-10)),btn('−',st(-1)),btn('+',st(1)),btn('+10',st(10)));pn.appendChild(rc);
+  const rp=el('div','r');rp.append(el('span','',M.sp===false?'🔒 비공개 (방 코드로만 입장)':'🌐 공개 (방 목록에 보여요)'),btn('바꾸기',()=>{M.sp=M.sp===false;render()}));pn.appendChild(rp);
+  const rb=el('div','r');rb.append(btn('방 열기',createRoom),btn('취소',()=>{M.st='idle';render()}));pn.appendChild(rb);return}
  if(M.st=='connecting'){pn.appendChild(el('div','h','연결하는 중이에요…'));pn.appendChild(btn('취소',leave));return}
- const r0=el('div','r');r0.append(el('span','',(M.rname?'🏠 '+M.rname+' · ':'')+'방 코드: '+M.code+(M.host?' (내가 방장)':'')+'  · '+M.roster.length+'/'+MAXP+'명'),btn('복사',()=>{try{navigator.clipboard.writeText(M.code).then(()=>toast('코드를 복사했어요'))}catch(e){toast('코드: '+M.code)}}),btn('나가기',leave));pn.appendChild(r0);const r1=el('div','r');r1.append(btn('📨 친구 초대하기',invite));pn.appendChild(r1);
+ const r0=el('div','r');r0.append(el('span','',(M.rname?'🏠 '+M.rname+' · ':'')+'방 코드: '+M.code+(M.host?' (내가 방장)':'')+'  · '+M.roster.length+'/'+(M.max||MAXP)+'명'),btn('복사',()=>{try{navigator.clipboard.writeText(M.code).then(()=>toast('코드를 복사했어요'))}catch(e){toast('코드: '+M.code)}}),btn('나가기',leave));pn.appendChild(r0);const r1=el('div','r');r1.append(btn('📨 친구 초대하기',invite));pn.appendChild(r1);
  if(M.req){const b=el('div','bn');b.appendChild(el('div','',nameOf(M.req.from)+'님이 거래를 요청했어요'));const r=el('div','r');r.append(btn('수락',()=>{const f=M.req.from;send(f,{t:'acc'});startTrade(f)}),btn('거절',()=>{send(M.req.from,{t:'rej'});M.req=null;render();badge()}));b.appendChild(r);pn.appendChild(b)}
  if(M.tr){tradeUI();return}
  pn.appendChild(el('div','h','같이 있는 친구 (거래할 친구를 골라요)'));
