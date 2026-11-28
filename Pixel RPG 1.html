@@ -405,7 +405,7 @@ if(t>=9){const a=fr/10;for(let i=0;i<3;i++)r(Math.round(Math.cos(a+i*2.09)*11),-
 if(t>=10)r(1,-12,1,2,'#fff');
 }
 function tx(s,x,y,cl,sz){tg.font='700 '+sz*S+'px "Noto Sans KR","Malgun Gothic",sans-serif';tg.textAlign='center';tg.lineWidth=S*1.6;tg.lineJoin='round';tg.strokeStyle='#000';const X=(x-Math.round(cam))*S;tg.strokeText(s,X,y*S);tg.fillStyle=cl;tg.fillText(s,X,y*S)}
-/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.1.47';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
+/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.1.49';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
 const pr=[Math.min(kl.s,3)+'/3',Math.min(col,5)+'/5',Math.min(kl.k,2)+'/2',P.sword?'완료':'0/1',bk>=6?'완료':Math.min(bk,6)+'/6'];
 $('ms').textContent=qWin();
 const ts=$('toast');ts.style.display=msgT>0?'block':'none';ts.textContent=msg}
@@ -1367,7 +1367,7 @@ function tryHost(n,fix){const code=fix||Array.from({length:5},()=>AL[Math.floor(
  p.on('connection',c=>{c.on('data',m=>hostRecv(c,m));c.on('close',()=>drop(c));c.on('error',()=>drop(c))});
  p.on('disconnected',()=>{try{if(M.peer===p&&!p.destroyed)p.reconnect()}catch(e){}});
  p.on('error',e=>{if(e&&e.type=='unavailable-id'&&fix&&n<4){M.peer=null;try{p.destroy()}catch(x){}M.host=false;joinRoom(fix,()=>{M.host=true;tryHost(n+1,fix)});return}if(e&&e.type=='unavailable-id'&&n<4){M.peer=null;try{p.destroy()}catch(x){}tryHost(n+1);return}if(e&&e.type=='disconnected')return;toast('방을 만들지 못했어요 ('+(e&&e.type)+')');if(M.peer===p)leave()})}
-function joinRoom(code,onMiss){code=String(code||'').toUpperCase().replace(/[^A-Z0-9]/g,'');if(code.length<4){toast('방 코드를 입력해 주세요');return}
+function joinRoom(code,onMiss){code=String(code||'').toUpperCase().replace(/[^A-Z0-9]/g,'');if(code.length<3){toast('방 코드를 입력해 주세요');return}
  M.st='connecting';M.host=false;M.code=code;render();
  loadPeer(()=>{const p=new Peer(Object.assign({debug:0},ICE));M.peer=p;
   const to=setTimeout(()=>{if(M.peer===p&&M.st=='connecting'){toast('연결하지 못했어요. 방 코드와 인터넷을 확인해 주세요');leave()}},15000);
@@ -1387,7 +1387,7 @@ function render(){syncPause();pn.innerHTML='';if(!M.open)return;
  if(M.st=='idle'){
   pn.appendChild(el('div','h','빠른 입장을 누르면 지금 열려 있는 방 목록이 보이고, 마음에 드는 방에 들어가거나 방 이름을 정해 새 방을 만들 수 있어요. 방 코드로 친구와 연결할 수도 있어요. 같은 맵(마을·초원·숲·루미나)에 있으면 서로 보이고, 재료와 코인을 교환할 수 있어요. 최대 '+MAXP+'명, 인터넷이 필요해요. 몬스터는 각자 따로예요.'));
   pn.appendChild(btn('🌐 빠른 입장 (멀티 중인 다른 용사와 만나기)',openList));pn.appendChild(btn('🏠 방 만들기',openSetup));
-  const r=el('div','r'),i=el('input');i.placeholder='친구 방 코드';i.maxLength=8;i.autocomplete='off';i.autocapitalize='characters';
+  const r=el('div','r'),i=el('input');i.placeholder='방 코드';i.maxLength=8;i.autocomplete='off';i.autocapitalize='characters';
   r.append(i,btn('입장',()=>joinRoom(i.value)));pn.appendChild(r);return}
  if(M.st=='list'){
   pn.appendChild(el('div','h','열려 있는 방'));
@@ -1404,7 +1404,7 @@ function render(){syncPause();pn.innerHTML='';if(!M.open)return;
   const rp=el('div','r');rp.append(el('span','',M.sp===false?'🔒 비공개 (방 코드로만 입장)':'🌐 공개 (방 목록에 보여요)'),btn('바꾸기',()=>{M.sp=M.sp===false;render()}));pn.appendChild(rp);
   const rb=el('div','r');rb.append(btn('방 열기',createRoom),btn('취소',()=>{M.st='idle';render()}));pn.appendChild(rb);return}
  if(M.st=='connecting'){pn.appendChild(el('div','h','연결하는 중이에요…'));pn.appendChild(btn('취소',leave));return}
- const pub=/^LB\d+$/.test(M.code||''),r0=el('div','r');r0.append(el('span','',(M.rname?'🏠 '+M.rname+' · ':'')+(pub?'':'방 코드: '+M.code)+(M.host?' (내가 방장)':'')+(pub&&!M.host?'':'  · ')+M.roster.length+'/'+(M.max||MAXP)+'명'));if(!pub)r0.append(btn('복사',()=>{try{navigator.clipboard.writeText(M.code).then(()=>toast('코드를 복사했어요'))}catch(e){toast('코드: '+M.code)}}));r0.append(btn('나가기',leave));pn.appendChild(r0);const r1=el('div','r');r1.append(btn('📨 친구 초대하기',invite));pn.appendChild(r1);
+ const r0=el('div','r');r0.append(el('span','',(M.rname?'🏠 '+M.rname+' · ':'')+'방 코드: '+M.code+(M.host?' (내가 방장)':'')+'  · '+M.roster.length+'/'+(M.max||MAXP)+'명'),btn('복사',()=>{try{navigator.clipboard.writeText(M.code).then(()=>toast('코드를 복사했어요'))}catch(e){toast('코드: '+M.code)}}),btn('나가기',leave));pn.appendChild(r0);const r1=el('div','r');r1.append(btn('📨 친구 초대하기',invite));pn.appendChild(r1);
  if(M.req){const b=el('div','bn');b.appendChild(el('div','',nameOf(M.req.from)+'님이 거래를 요청했어요'));const r=el('div','r');r.append(btn('수락',()=>{const f=M.req.from;send(f,{t:'acc'});startTrade(f)}),btn('거절',()=>{send(M.req.from,{t:'rej'});M.req=null;render();badge()}));b.appendChild(r);pn.appendChild(b)}
  if(M.tr){tradeUI();return}
  pn.appendChild(el('div','h','같이 있는 친구 (거래할 친구를 골라요)'));
