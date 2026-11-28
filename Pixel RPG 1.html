@@ -122,14 +122,14 @@ body.tc #tpw{top:calc(100px + env(safe-area-inset-top,0px))!important}
 #ver{position:fixed;left:8px;bottom:calc(6px + env(safe-area-inset-bottom,0px));z-index:2;pointer-events:none;font-size:15px;line-height:1;color:#fff;opacity:.7;text-shadow:0 0 2px #000,0 0 2px #000}</style></head><body>
 <div id="w"><canvas id="c"></canvas><canvas id="t"></canvas></div>
 <div id="hud" class="o"></div><div id="ms" class="o"></div>
-<div id="tb" class="o"><button id="set">캐릭터 설정</button><button id="tr">데이터 이동</button><button id="mu">🔊 음악</button><button id="dvm">개발자</button><button id="fs">전체화면 (F11)</button><button id="rst" style="color:#ff8a8a;display:none">🗑 데이터 초기화</button></div><div id="vp" class="o" hidden><div class="vr"><b>음악 설정</b><button id="vx" aria-label="닫기">✕</button></div><div class="vr"><span>음악</span><button id="vt">켜짐</button></div><div class="vr"><span>음량</span><output id="vo" for="vs">50%</output></div><div class="vr"><button class="vi" id="v0" aria-label="소리 끄기">🔈</button><input id="vs" type="range" min="0" max="100" step="1" value="50" aria-label="음량"><button class="vi" id="v1" aria-label="최대 음량">🔊</button></div></div>
+<div id="tb" class="o"><button id="set">캐릭터 설정</button><button id="tr">데이터 이동</button><button id="mu">🔊 음악</button><button id="dvm">개발자</button><button id="fs">전체화면 (F11 / Esc)</button><button id="rst" style="color:#ff8a8a;display:none">🗑 데이터 초기화</button></div><div id="vp" class="o" hidden><div class="vr"><b>음악 설정</b><button id="vx" aria-label="닫기">✕</button></div><div class="vr"><span>음악</span><button id="vt">켜짐</button></div><div class="vr"><span>음량</span><output id="vo" for="vs">50%</output></div><div class="vr"><button class="vi" id="v0" aria-label="소리 끄기">🔈</button><input id="vs" type="range" min="0" max="100" step="1" value="50" aria-label="음량"><button class="vi" id="v1" aria-label="최대 음량">🔊</button></div></div>
 <div id="dvp" class="o" style="display:none;left:8px;top:calc(132px + env(safe-area-inset-top,0px));z-index:7;white-space:normal;flex-wrap:wrap;gap:6px;max-width:210px;padding:8px"><b style="width:100%;font-size:12px;color:#ffd24a">개발자 · 텔레포트</b><button data-tp="fish">🎣 낚시터</button><button data-tp="mine">⛏ 광산</button><button data-tp="dg">🗝 던전</button><button data-tp="boss">👹 보스방</button><button data-tp="lumina">🌸 루미나 마을</button><b style="width:100%;font-size:12px;color:#ffd24a;margin-top:4px">개발자 · 문지기(보스)방 이동</b><button data-tp="f10">🚪 10층 문지기</button><button data-tp="f20">🚪 20층 문지기</button><button data-tp="f30">🚪 30층 문지기</button><button data-tp="f40">🚪 40층 문지기</button><button data-tp="f50">👹 마왕의 방</button></div><div id="toast" class="o"></div><div id="hflash"></div><div id="hb"></div><div id="bb"><div id="bbn"></div><canvas id="bbc" width="140" height="26"></canvas><div id="bbi"><div id="bbf"></div><div id="bbt"></div></div></div>
 <div id="tc"><div class="pg l"><button data-k="KeyA">◀</button><button data-k="KeyD">▶</button></div><div class="pg r"><div class="rs"><button data-k="KeyQ">Q</button><button data-k="KeyR">대화</button><button data-k="KeyE">가방</button><button data-k="KeyF">귀환</button></div><div class="rm"><button data-k="KeyK">특수</button><button data-k="KeyL">충격</button><button data-k="KeyJ" class="big">공격</button><button data-k="KeyW" class="big">점프</button></div></div></div>
 <div id="dl" class="ov" style="z-index:10;background:rgba(0,0,0,.75);display:none"><div class="bx" style="text-align:center"><h1>Pixel RPG 1</h1><p>이 기기에서는 게임을 열 수 없어요.</p><p style="font-size:12px;opacity:.8">허용된 기기가 아니에요. 게임을 받은 곳에 문의해 주세요.</p><p id="dlc" style="font-size:11px;opacity:.65;user-select:text;-webkit-user-select:text"></p><button id="dlcb" style="margin-top:6px;padding:8px 14px;font-size:13px">코드 복사</button></div></div><div id="dv" class="ov" style="z-index:9;background:rgba(0,0,0,.6)"><div class="bx" style="text-align:center"><h1>Pixel RPG 1</h1><p>어떤 기기로 플레이하나요?</p><div class="row" style="flex-wrap:wrap"><button class="dvb" data-d="a" style="flex:1;min-width:92px;padding:16px 6px;font-size:15px">🤖 Android</button><button class="dvb" data-d="i" style="flex:1;min-width:92px;padding:16px 6px;font-size:15px">🍎 iOS</button><button class="dvb" data-d="p" style="flex:1;min-width:92px;padding:16px 6px;font-size:15px">💻 PC</button><button class="dvb" data-d="x" style="flex:1;min-width:92px;padding:16px 6px;font-size:15px">🖥️ iMac</button></div><p style="margin:4px 0 0;font-size:12px">Android와 iOS는 화면 아래에 조작 버튼이 나오고,<br>PC와 iMac은 키보드(WASD)로 조작해요.</p><p id="devc" style="margin:8px 0 0;font-size:11px;opacity:.65;user-select:text;-webkit-user-select:text"></p></div></div>
 <div id="m" class="ov" style="display:none"><div class="bx"><h1>Pixel RPG 1</h1><p>모험가 캐릭터 설정</p>
 <div class="row"><button class="gb on" data-g="m">♂ 남자 (용사)</button><button class="gb" data-g="f">♀ 여자 (여전사)</button></div>
 <input id="id" maxlength="12" placeholder="아이디 (최대 12자)" autocomplete="off"><div id="er"></div>
-<button id="go">모험 시작</button><button id="trm" style="margin-top:8px;font-size:13px;padding:8px 12px">다른 기기에서 데이터 가져오기</button><p style="margin:12px 0 0;font-size:12px">WASD 이동 · J 공격 · K 특수 공격 · Q 상점·빵집·회관·광산·낚시터·문 · R NPC 대화 · E 인벤토리 · F11 전체화면 · Esc 전체화면 종료 (모바일은 화면 버튼)</p></div></div>
+<button id="go">모험 시작</button><button id="trm" style="margin-top:8px;font-size:13px;padding:8px 12px">다른 기기에서 데이터 가져오기</button><p style="margin:12px 0 0;font-size:12px">WASD 이동 · J 공격 · K 특수 공격 · Q 상점·빵집·회관·광산·낚시터·문 · R NPC 대화 · E 인벤토리 · F11 또는 Esc 전체화면 켜기·끄기 (모바일은 화면 버튼)</p></div></div>
 <div id="trp" class="ov" style="display:none;z-index:11;background:rgba(0,0,0,.65)"><div class="bx" style="width:min(440px,94vw);max-height:88vh;max-height:88dvh;box-sizing:border-box;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;text-align:left"><h1 id="trh1" style="text-align:center">데이터 이동</h1>
 <div id="trA"><b>① 이 기기 → 다른 기기</b><p id="trAp" style="font-size:12px;margin:4px 0 6px">「비밀번호를 정하고 「이동 코드 만들기」를 누른 뒤 코드를 복사(또는 파일로 저장)해 다른 기기에서 불러오세요. 다른 기기에서 불러온 것을 확인한 뒤 「이동 완료」를 누르면 이 기기의 데이터가 지워져요.</p>
 <input id="trpin" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" placeholder="6자리 숫자 비밀번호 (000001~999999)" style="width:100%;box-sizing:border-box;padding:8px;font-size:14px;text-align:center;letter-spacing:3px;margin-bottom:6px"><button id="trmk" style="width:100%;padding:8px">이동 코드 만들기</button>
@@ -405,7 +405,7 @@ if(t>=9){const a=fr/10;for(let i=0;i<3;i++)r(Math.round(Math.cos(a+i*2.09)*11),-
 if(t>=10)r(1,-12,1,2,'#fff');
 }
 function tx(s,x,y,cl,sz){tg.font='700 '+sz*S+'px "Noto Sans KR","Malgun Gothic",sans-serif';tg.textAlign='center';tg.lineWidth=S*1.6;tg.lineJoin='round';tg.strokeStyle='#000';const X=(x-Math.round(cam))*S;tg.strokeText(s,X,y*S);tg.fillStyle=cl;tg.fillText(s,X,y*S)}
-/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.1.20';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
+/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.1.26';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
 const pr=[Math.min(kl.s,3)+'/3',Math.min(col,5)+'/5',Math.min(kl.k,2)+'/2',P.sword?'완료':'0/1',bk>=6?'완료':Math.min(bk,6)+'/6'];
 $('ms').textContent=qWin();
 const ts=$('toast');ts.style.display=msgT>0?'block':'none';ts.textContent=msg}
@@ -474,7 +474,7 @@ if(e.code=='KeyF'&&!e.repeat)goHome();
 if(e.code=='F11'){e.preventDefault();if(!e.repeat&&!fsEl())toggleFS();}
 if(!paused&&!qOn&&!shopOn&&/^Digit[1-9]$/.test(e.code)&&!e.repeat)hbSel(+e.code[5]-1);
 if((e.code=='KeyQ'||e.code=='KeyR')&&!e.repeat){const z=e.code=='KeyR';if(shopOn){if(!z)closeShop()}else if(qOn){if(qM=='npc'){if(z)nNext();else qClose()}else if(!z)qClose()}else if(z){if(!paused&&!DG.on&&npcNear())nOpen(npcNear());else if(!paused&&DG.on&&DG.f==51){const n=LN.find(a=>Math.abs(P.x-a.x)<22);if(n){if(n.questId=='main'&&QS.lmQuest==1&&(QS.lmPetals||0)>=3)QS.lmQuest=2;if(n.shop=='item')openShop();else if(n.shop=='smith')openShop('smith');else if(n.n=='세리아 치료사'){P.hp=P.mh;P.mp=P.mm;snd('u');say('세리아가 HP와 MP를 모두 회복해 줬어요!')}else if(n.n=='에린 여관 주인'){P.hp=P.mh;P.mp=P.mm;snd('u');say('여관에서 푹 쉬었습니다. HP와 MP가 회복됐어요!')}else nOpen(n)}}}else if(!paused&&!DG.on&&Math.abs(P.x-SHOP)<48)openShop();else if(!paused&&!DG.on&&Math.abs(P.x-BX)<30)openShop('bake');else if(!paused&&!DG.on&&Math.abs(P.x-SX)<30)openShop('smith');else if(!paused){const n=qNear();if(n)(DG.on?dgAct(n):n[1]=='gate'?dgEnter():qOpen(n[1]))}}
-if(e.code=='Escape'&&shopOn)closeShop();if(e.code=='Escape'&&qOn)qClose();if(shopOn||qOn)return;
+if(e.code=='Escape'&&shopOn)closeShop();if(e.code=='Escape'&&qOn)qClose();if(e.code=='Escape'&&!e.repeat&&!shopOn&&!qOn&&!e.defaultPrevented&&e.target.tagName!='INPUT')toggleFS();if(shopOn||qOn)return;
 keys[e.code]=true;if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault()});
 addEventListener('keyup',e=>{delete keys[e.code]});addEventListener('blur',()=>{keys={}});document.addEventListener('visibilitychange',()=>{if(document.hidden)keys={}});
 document.querySelectorAll('.gb').forEach(b=>b.onclick=()=>{gender=b.dataset.g;document.querySelectorAll('.gb').forEach(x=>x.classList.toggle('on',x==b))});
@@ -493,7 +493,7 @@ function toggleFS(){const d=document,e=d.documentElement,no=()=>say('전체화�
   if(!f){iosFsGuide();return}
   const q=f.call(e);if(q&&q.catch)q.catch(no)}catch(x){no()}}
 $('fs').onclick=toggleFS;$('tb').addEventListener('click',e=>{const b=e.target.closest('button');if(b&&b.id!='fs'&&b.id!='mu'&&[...document.querySelectorAll('.ov')].some(o=>getComputedStyle(o).display!='none')){if(b.id=='dvm')say('먼저 열려 있는 창(기기 선택·캐릭터 설정)을 닫고 게임을 시작해 주세요.');e.stopImmediatePropagation();e.preventDefault()}},true);
-const fsCh=()=>{$('fs').textContent=fsEl()?'전체화면 종료 (Esc)':(macD?'전체화면':'전체화면 (F11)')};document.addEventListener('fullscreenchange',fsCh);document.addEventListener('webkitfullscreenchange',fsCh);
+const fsCh=()=>{$('fs').textContent=fsEl()?'전체화면 종료 (F11 / Esc)':(macD?'전체화면':'전체화면 (F11 / Esc)');try{if(navigator.keyboard&&navigator.keyboard.lock){if(fsEl())navigator.keyboard.lock(['Escape']).catch(()=>{});else navigator.keyboard.unlock()}}catch(x){}};document.addEventListener('fullscreenchange',fsCh);document.addEventListener('webkitfullscreenchange',fsCh);
 $('cont').onclick=()=>{clrStop();$('end').style.display='none';ended=false;paused=false;keys={};startBgm();say('이어서 플레이해요! 던전에서 나가거나 계속 돌아다닐 수 있어요.')};
 $('again').onclick=()=>{clrStop();init();$('end').style.display='none';paused=false;startBgm()};
 $('reset').onclick=()=>{clrStop();chg=null;$('er').textContent='';init();$('end').style.display='none';$('go').textContent='모험 시작';$('m').style.display='flex'};
@@ -1277,7 +1277,7 @@ const pn=el('div');pn.id='mp';document.body.appendChild(pn);
 ['keydown','keyup','keypress'].forEach(k=>pn.addEventListener(k,e=>e.stopPropagation()));
 const tt=el('div');tt.id='mpt';document.body.appendChild(tt);let tmr=0;
 function toast(m){tt.textContent=m;tt.style.display='block';clearTimeout(tmr);tmr=setTimeout(()=>{tt.style.display='none'},3500)}
-const mb=el('button','','🤝 멀티');mb.id='mpb';{tbar.insertBefore(mb,gid('rst')||null)}
+const mb=el('button','','🤝 멀티');mb.id='mpb';{const dv=gid('dvm'),rs=gid('rst')||null;if(dv&&dv.parentNode===tbar){tbar.insertBefore(mb,dv);tbar.insertBefore(dv,rs)}else tbar.insertBefore(mb,rs)}
 function badge(){mb.textContent='🤝 멀티'+(M.st=='in'?' '+M.roster.length+'명':'')+((M.req||M.tr)&&!M.open?' ●':'')}
 // ---- 거래 데이터 ----
 const clean=o=>{const r={inv:{},coins:0};if(o&&o.inv)for(const k in TIT){const n=Math.floor(+o.inv[k]);if(n>0&&n<=9999)r.inv[k]=n}const c=Math.floor(+(o&&o.coins));if(c>0&&c<=10000000)r.coins=c;return r};
@@ -1449,7 +1449,7 @@ const $=id=>document.getElementById(id),tb=$('tb');if(!tb)return;
 const ua=navigator.userAgent||'',ios=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&(navigator.maxTouchPoints||0)>1),android=/Android/i.test(ua);
 const standalone=()=>{try{return matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: fullscreen)').matches||navigator.standalone===true}catch(e){return false}};
 let dp=null,tt=0;
-const ib=document.createElement('button');ib.id='ib';ib.textContent='📲 설치·저장';tb.appendChild(ib);
+const ib=document.createElement('button');ib.id='ib';ib.textContent='📲 설치·저장';tb.appendChild(ib);{const st=document.createElement('style');st.textContent='body:not(.tc) #ib,body:not(.tc) #ip{display:none!important}';document.head.appendChild(st)}{const dv=document.getElementById('dvm');if(dv&&dv.parentNode===tb){const nx=ib.nextSibling;tb.insertBefore(ib,dv);tb.insertBefore(dv,nx)}}
 const ip=document.createElement('div');ip.id='ip';
 ip.innerHTML='<div class="ir"><b>📲 설치 · 저장</b><button id="ipx" aria-label="닫기">✕</button></div><button id="ipi"></button><button id="ipd">💾 게임 파일 저장</button><div class="ih" id="iph">홈 화면에 설치하면 전체화면 앱처럼 실행돼요.</div>';
 document.body.appendChild(ip);
@@ -1459,10 +1459,10 @@ function hint(m){$('iph').textContent=m}
 function refresh(){const s=standalone(),b=$('ipi');if(!b)return;b.textContent=s?'✅ 앱으로 실행 중':'📲 홈 화면에 앱으로 설치';b.disabled=s}
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;refresh()});
 addEventListener('appinstalled',()=>{dp=null;toast('설치 완료! 홈 화면에서 실행하세요');refresh()});
-if(/^https?:$/.test(location.protocol)&&!document.querySelector('link[rel=manifest]')){try{const ic=document.querySelector('link[rel=apple-touch-icon]');const m={name:'Pixel RPG 1',short_name:'Pixel RPG',start_url:location.href.split('#')[0],display:'fullscreen',background_color:'#000000',theme_color:'#000000',icons:ic?[{src:ic.href,sizes:'180x180',type:'image/png'}]:[]};const l=document.createElement('link');l.rel='manifest';l.href=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:'application/manifest+json'}));document.head.appendChild(l)}catch(e){}}
+if(/^https?:$/.test(location.protocol)&&!document.querySelector('link[rel=manifest]')){(async()=>{try{const ic=document.querySelector('link[rel=apple-touch-icon]');let icons=[];if(ic){try{const im=new Image();im.src=ic.href;await im.decode();for(const z of [192,512]){const c=document.createElement('canvas');c.width=c.height=z;c.getContext('2d').drawImage(im,0,0,z,z);const d=c.toDataURL('image/png');icons.push({src:d,sizes:z+'x'+z,type:'image/png',purpose:'any'},{src:d,sizes:z+'x'+z,type:'image/png',purpose:'maskable'})}}catch(e){icons=[{src:ic.href,sizes:'180x180',type:'image/png'}]}}const u=location.href.split('#')[0];const m={id:u,name:'Pixel RPG 1',short_name:'Pixel RPG',start_url:u,scope:u.replace(/[^/]*$/,''),display:'fullscreen',display_override:['fullscreen','standalone'],orientation:'any',background_color:'#000000',theme_color:'#000000',icons:icons};const l=document.createElement('link');l.rel='manifest';l.href=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:'application/manifest+json'}));document.head.appendChild(l)}catch(e){}})()}
 async function doInstall(){
  if(standalone()){toast('이미 앱으로 실행 중이에요');return}
- if(dp){try{dp.prompt();const r=await dp.userChoice;dp=null;if(r&&r.outcome==='accepted')toast('설치 중이에요…');return}catch(e){}}
+ if(dp){try{dp.prompt();const r=await dp.userChoice;dp=null;if(r&&r.outcome==='accepted')toast('설치 중이에요…');else toast('설치를 취소했어요');return}catch(e){}}if(location.protocol=='file:'){ip.classList.add('on');hint('파일로 열어 둔 상태에서는 설치할 수 없어요. 웹 주소(https)로 올려서 그 주소로 열면 이 버튼 한 번으로 설치돼요.');return}ip.classList.add('on');
  hint(ios?'아이폰·아이패드는 Safari 하단의 공유 버튼(□↑) → "홈 화면에 추가" → "추가"를 누르세요. 다른 브라우저라면 Safari로 열어 주세요.':android?'Chrome 오른쪽 위 ⋮ 메뉴 → "앱 설치" 또는 "홈 화면에 추가"를 누르세요.':'브라우저 주소창 오른쪽의 설치 아이콘(⊕)이나 메뉴의 "앱 설치"를 누르세요.')
 }
 async function doDl(){
@@ -1475,7 +1475,7 @@ async function doDl(){
  hint('저장을 시작했어요. 다운로드/파일 앱에서 확인하세요.')
 }
 addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('#ib,#ip button');if(!t)return;e.stopImmediatePropagation();e.preventDefault();
- if(t.id=='ib'){ip.classList.toggle('on');refresh()}
+ if(t.id=='ib'){if(standalone()){toast('이미 앱으로 실행 중이에요');return}if(dp){doInstall();return}ip.classList.toggle('on');refresh()}
  else if(t.id=='ipx')ip.classList.remove('on');
  else if(t.id=='ipi')doInstall();
  else if(t.id=='ipd')doDl()},true);
@@ -1520,8 +1520,8 @@ body.tc #tc .pg.r button{touch-action:none}
 body.tc #tc .pg.r button[data-k=KeyJ],body.tc #tc .pg.r button[data-k=KeyW]{width:calc(var(--bh)*1.1)!important;height:calc(var(--bh)*1.1)!important;font-size:15px!important}
 body.tc #tc .pg.r button[data-k=KeyK],body.tc #tc .pg.r button[data-k=KeyL]{width:calc(var(--bh)*.9)!important;height:calc(var(--bh)*.9)!important}
 body.tc #tc .pg.r button[data-k=KeyQ],body.tc #tc .pg.r button[data-k=KeyR],body.tc #tc .pg.r button[data-k=KeyE],body.tc #tc .pg.r button[data-k=KeyF]{width:calc(var(--bh)*.8)!important;height:calc(var(--bh)*.72)!important;font-size:11px!important}
-body.tc #tc .pg.r button[data-k=KeyJ]{order:5}
-body.tc #tc .pg.r button[data-k=KeyW]{order:6}
+body.tc #tc .pg.r button[data-k=KeyW]{order:5}
+body.tc #tc .pg.r button[data-k=KeyJ]{order:6}
 body.tc #tc .pg.r button[data-k=KeyK]{order:7}
 body.tc #tc .pg.r button[data-k=KeyL]{order:8}
 body.tc #tc .pg.r button[data-k=KeyQ]{order:1}
