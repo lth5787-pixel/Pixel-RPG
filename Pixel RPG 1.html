@@ -405,7 +405,7 @@ if(t>=9){const a=fr/10;for(let i=0;i<3;i++)r(Math.round(Math.cos(a+i*2.09)*11),-
 if(t>=10)r(1,-12,1,2,'#fff');
 }
 function tx(s,x,y,cl,sz){tg.font='700 '+sz*S+'px "Noto Sans KR","Malgun Gothic",sans-serif';tg.textAlign='center';tg.lineWidth=S*1.6;tg.lineJoin='round';tg.strokeStyle='#000';const X=(x-Math.round(cam))*S;tg.strokeText(s,X,y*S);tg.fillStyle=cl;tg.fillText(s,X,y*S)}
-/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.1.29';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
+/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.1.30';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
 const pr=[Math.min(kl.s,3)+'/3',Math.min(col,5)+'/5',Math.min(kl.k,2)+'/2',P.sword?'완료':'0/1',bk>=6?'완료':Math.min(bk,6)+'/6'];
 $('ms').textContent=qWin();
 const ts=$('toast');ts.style.display=msgT>0?'block':'none';ts.textContent=msg}
@@ -1499,7 +1499,7 @@ body.tc #mnu{display:block}
 body.tc:not(.mopen) #tb{display:none!important}
 body.tc.mopen #tb{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;top:calc(48px + env(safe-area-inset-top,0px))!important;width:min(250px,64vw)!important;max-height:calc(100dvh - 70px)!important;padding:8px!important;gap:6px!important;background:rgba(20,24,40,.97)!important;border:2px solid #5a6aa8;border-radius:8px;z-index:8!important}
 body.tc.mopen #tb button{height:36px!important;font-size:12px!important}
-body.tc #ms{font-size:14px;line-height:1.4;max-width:46vw;padding:5px 8px;top:calc(210px + env(safe-area-inset-top,0px));transform:none}
+body.tc #ms{font-size:14px;line-height:1.4;max-width:46vw;padding:5px 8px;top:calc(52px + env(safe-area-inset-top,0px));transform:none}
 body.tc #ip,body.tc #vp{top:calc(52px + env(safe-area-inset-top,0px))}
 body.tc #tc{--bh:58px}
 @media(max-width:560px){body.tc #tc{--bh:52px}}
@@ -1545,7 +1545,7 @@ body:not(.tc) #mnu{display:block}
 body:not(.tc):not(.mopen) #tb{display:none!important}
 body:not(.tc).mopen #tb{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;top:calc(48px + env(safe-area-inset-top,0px))!important;width:min(250px,64vw)!important;max-height:114px!important;overflow-y:auto!important;padding:8px!important;gap:6px!important;background:rgba(20,24,40,.97)!important;border:2px solid #5a6aa8;border-radius:8px;z-index:8!important}
 body:not(.tc).mopen #tb button{height:36px!important;font-size:12px!important}
-body:not(.tc) #ms{font-size:15px;line-height:1.4;max-width:300px;padding:6px 10px;top:calc(210px + env(safe-area-inset-top,0px));transform:none}
+body:not(.tc) #ms{font-size:15px;line-height:1.4;max-width:300px;padding:6px 10px;top:calc(100px + env(safe-area-inset-top,0px));transform:none}
 body:not(.tc) #ip,body:not(.tc) #vp{top:calc(52px + env(safe-area-inset-top,0px))}
 </style><style id="khelp">
 #hlp{position:fixed;right:58px;top:calc(6px + env(safe-area-inset-top,0px));z-index:7;width:44px;height:36px;padding:0;font-size:18px;font-weight:700;line-height:1;opacity:.9}
