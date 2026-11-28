@@ -408,7 +408,7 @@ if(t>=9){const a=fr/10;for(let i=0;i<3;i++)r(Math.round(Math.cos(a+i*2.09)*11),-
 if(t>=10)r(1,-12,1,2,'#fff');
 }
 function tx(s,x,y,cl,sz){tg.font='700 '+sz*S+'px "Noto Sans KR","Malgun Gothic",sans-serif';tg.textAlign='center';tg.lineWidth=S*1.6;tg.lineJoin='round';tg.strokeStyle='#000';const X=(x-Math.round(cam))*S;tg.strokeText(s,X,y*S);tg.fillStyle=cl;tg.fillText(s,X,y*S)}
-/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.1.40';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
+/* 버전 규칙: 마지막 자리 99 다음 → 가운데 자리 +1 (V.0.0.99 → V.0.1.0), 가운데 자리 99.99 다음 → V.1.0.0 */const GAME_VER='V.0.1.42';(function(){const v=document.createElement('div');v.id='ver';v.textContent=GAME_VER;document.body.appendChild(v)})();function hud(){if(!DEV){if(P.rod&&(P.rd|0)<=0)toolBreak('rod');if(P.pick&&(P.pd|0)<=0)toolBreak('pick')}hbRender();$('hud').textContent=sym()+' '+dn()+'  Lv.'+P.lv+' · 코인 '+P.coins+'\nHP '+P.hp+'/'+P.mh+' · MP '+P.mp+'/'+P.mm+'\nEXP '+P.xp+'/'+P.lv*30+' · 공격력 '+P.atk+(DG.on&&DG.m[DG.f]&&DG.m[DG.f].hasKey?' · 🗝 열쇠':'')+buffTxt()+'\n♥ '+(DEV?'부활 무제한':'남은 부활 '+LV+'회')+' · 🗡 '+(P.wpn?P.wpn.n+' '+P.dur+'/'+wMax():'검 없음');
 const pr=[Math.min(kl.s,3)+'/3',Math.min(col,5)+'/5',Math.min(kl.k,2)+'/2',P.sword?'완료':'0/1',bk>=6?'완료':Math.min(bk,6)+'/6'];
 $('ms').textContent=qWin();
 const ts=$('toast');ts.style.display=msgT>0?'block':'none';ts.textContent=msg}
@@ -1318,20 +1318,32 @@ function send(to,m){try{if(M.host){if(M.conns[to])M.conns[to].send({t:'msg',from
 function bcast(m){for(const id in M.conns)try{M.conns[id].send(m)}catch(e){}}
 function pushRoster(){render();badge();bcast({t:'roster',list:M.roster})}
 function checkPeers(){for(const id in OT)if(!M.roster.some(r=>r.id===+id))delete OT[id];if(M.tr&&!M.roster.some(r=>r.id===M.tr.peer))endTrade(true);if(M.req&&!M.roster.some(r=>r.id===M.req.from))M.req=null;if(M.out!=null&&!M.roster.some(r=>r.id===M.out))M.out=null}
-function hostRecv(c,m){if(!m||typeof m!='object')return;
+function hostRecv(c,m){if(!m||typeof m!='object')return;c._seen=Date.now();
+ if(m.t=='bye'){if(c._id){drop(c);try{c.close()}catch(e){}}return}
  if(m.t=='hi'){if(c._id)return;if(M.roster.length>=MAXP){try{c.send({t:'full'})}catch(e){}setTimeout(()=>{try{c.close()}catch(e){}},400);return}
   const id=++M.nid;c._id=id;M.conns[id]=c;M.roster.push({id,n:nm(m.n)});try{c.send({t:'welcome',id})}catch(e){}toast('👋 '+nm(m.n)+'님이 들어왔어요');try{snd('mj')}catch(e){}pushRoster()}
  else if(m.t=='p'&&c._id){applyPos(c._id,m.d);for(const id in M.conns)if(+id!==c._id)try{M.conns[id].send({t:'p',from:c._id,d:m.d})}catch(e){}}
  else if(m.t=='chat'&&c._id){const s=chClean(m.s),now=Date.now();if(!s||now-(c._ct||0)<400)return;c._ct=now;chRecv(c._id,s);for(const id in M.conns)if(+id!==c._id)try{M.conns[id].send({t:'chat',from:c._id,s})}catch(e){}}
  else if(m.t=='to'&&c._id){const to=+m.to;if(to===0)handle(c._id,m.m);else if(M.conns[to])try{M.conns[to].send({t:'msg',from:c._id,m:m.m})}catch(e){}}}
 function drop(c){const id=c._id;if(!id||!M.conns[id])return;delete M.conns[id];const n=nameOf(id);M.roster=M.roster.filter(r=>r.id!==id);checkPeers();toast(n+'님이 나갔어요');try{snd('ml')}catch(e){}pushRoster()}
-function clientRecv(m){if(!m||typeof m!='object')return;
+function clientRecv(m){if(!m||typeof m!='object')return;M.seen=Date.now();
  if(m.t=='welcome'){M.id=+m.id;M.st='in';render()}
- else if(m.t=='roster'&&Array.isArray(m.list)){const _old=M.roster.map(r=>r.id);M.roster=m.list.slice(0,MAXP).map(r=>({id:+r.id,n:nm(r.n)}));if(_old.length>1&&M.roster.some(r=>r.id!==M.id&&!_old.includes(r.id)))try{snd('mj')}catch(e){}if(_old.some(id=>id!==M.id&&!M.roster.some(r=>r.id===id)))try{snd('ml')}catch(e){}checkPeers();render();badge()}
+ else if(m.t=='kick'){toast(String(m.s||'방장이 추방했어요').slice(0,80));leave()}
+ else if(m.t=='kicked'){M.kk=M.kk||{};M.kk[+m.id]=1;toast(String(m.s||'').slice(0,80))}
+ else if(m.t=='closed'){toast('방장이 나가서 방이 닫혔어요');leave()}
+ else if(m.t=='roster'&&Array.isArray(m.list)){const _old=M.roster.map(r=>r.id),_on=M.roster.slice();M.roster=m.list.slice(0,MAXP).map(r=>({id:+r.id,n:nm(r.n)}));if(_old.length>1){try{M.roster.filter(r=>r.id!==M.id&&!_old.includes(r.id)).forEach(r=>toast('👋 '+r.n+'님이 들어왔어요'));_on.filter(r=>r.id!==M.id&&!M.roster.some(x=>x.id===r.id)&&!(M.kk&&M.kk[r.id])).forEach(r=>toast(r.n+'님이 나갔어요'))}catch(e){}}if(_old.length>1&&M.roster.some(r=>r.id!==M.id&&!_old.includes(r.id)))try{snd('mj')}catch(e){}if(_old.some(id=>id!==M.id&&!M.roster.some(r=>r.id===id)))try{snd('ml')}catch(e){}checkPeers();render();badge()}
  else if(m.t=='chat'){const s=chClean(m.s);if(s)chRecv(+m.from,s)}
  else if(m.t=='msg')handle(+m.from,m.m);
  else if(m.t=='p')applyPos(+m.from,m.d);
  else if(m.t=='full'){if(M.q){const i=M.q;leave();quick(i+1);return}toast('방이 가득 찼어요 (최대 '+MAXP+'명)');leave()}}
+function kick(id){if(!M.host||!M.conns[id])return;const n=nameOf(id);if(!confirm(n+'님을 추방할까요?'))return;const c=M.conns[id],s=n+'님을 '+myName()+'님이 추방했습니다.';
+ try{c.send({t:'kick',s})}catch(e){}setTimeout(()=>{try{c.close()}catch(e){}},400);
+ delete M.conns[id];bcast({t:'kicked',id,s});M.roster=M.roster.filter(r=>r.id!==id);checkPeers();toast(s);try{snd('ml')}catch(e){}pushRoster()}
+addEventListener('pagehide',()=>{if(M.st!='in')return;try{if(M.host)bcast({t:'closed'});else if(M.hc)M.hc.send({t:'bye'})}catch(e){}});
+addEventListener('pageshow',e=>{if(e.persisted&&M.st=='in')leave()});
+setInterval(()=>{const now=Date.now();
+ if(M.host){for(const id in M.conns){const c=M.conns[id];if(c&&now-(c._seen||now)>40000){try{c.close()}catch(e){}drop(c)}}}
+ else if(M.st=='in'&&M.hc&&M.seen&&now-M.seen>40000){const q=M.q;toast('방과 연결이 끊어졌어요');leave();if(q)setTimeout(()=>quick(1),600)}},5000);
 function loadPeer(cb,i){i=i||0;if(window.Peer)return cb();if(M.loading)return;M.loading=true;const s=document.createElement('script');s.src=URLS[i];s.onload=()=>{M.loading=false;cb()};s.onerror=()=>{M.loading=false;if(i+1<URLS.length)loadPeer(cb,i+1);else{toast('연결 모듈을 불러오지 못했어요. 인터넷을 확인해 주세요');M.st='idle';render()}};document.head.appendChild(s)}
 function hostRoom(){M.st='connecting';M.host=true;render();loadPeer(()=>tryHost(0))}
 function tryHost(n,fix){const code=fix||Array.from({length:5},()=>AL[Math.floor(Math.random()*AL.length)]).join('');const p=new Peer(PFX+code,Object.assign({debug:0},ICE));M.peer=p;
@@ -1366,7 +1378,7 @@ function render(){syncPause();pn.innerHTML='';if(!M.open)return;
  if(M.req){const b=el('div','bn');b.appendChild(el('div','',nameOf(M.req.from)+'님이 거래를 요청했어요'));const r=el('div','r');r.append(btn('수락',()=>{const f=M.req.from;send(f,{t:'acc'});startTrade(f)}),btn('거절',()=>{send(M.req.from,{t:'rej'});M.req=null;render();badge()}));b.appendChild(r);pn.appendChild(b)}
  if(M.tr){tradeUI();return}
  pn.appendChild(el('div','h','같이 있는 친구 (거래할 친구를 골라요)'));
- M.roster.forEach(p=>{const r=el('div','r');if(p.id===M.id){r.append(el('span','','나 · '+p.n))}else{const w=M.out===p.id;r.append(el('span','',p.n+(p.id===0?' (방장)':'')+' · '+whereOf(p.id)+(OT[p.id]&&OT[p.id].ar===P.ar?' ✔같은 맵':'')),w?btn('요청 취소',()=>{send(p.id,{t:'creq'});M.out=null;render()}):btn('거래 요청',()=>{if(M.tr||M.out!=null){toast('이미 요청 중이에요');return}M.out=p.id;send(p.id,{t:'req'});toast('요청을 보냈어요');render()},M.out!=null||!!M.req))}pn.appendChild(r)});
+ M.roster.forEach(p=>{const r=el('div','r');if(p.id===M.id){r.append(el('span','','나 · '+p.n))}else{const w=M.out===p.id;r.append(el('span','',p.n+(p.id===0?' (방장)':'')+' · '+whereOf(p.id)+(OT[p.id]&&OT[p.id].ar===P.ar?' ✔같은 맵':'')),w?btn('요청 취소',()=>{send(p.id,{t:'creq'});M.out=null;render()}):btn('거래 요청',()=>{if(M.tr||M.out!=null){toast('이미 요청 중이에요');return}M.out=p.id;send(p.id,{t:'req'});toast('요청을 보냈어요');render()},M.out!=null||!!M.req));if(M.host)r.append(btn('🚫 추방',()=>kick(p.id)))}pn.appendChild(r)});
  if(M.roster.length<2)pn.appendChild(el('div','h','친구에게 방 코드를 알려 주세요.'))}
 function tradeUI(){const t=M.tr,w=nameOf(t.peer);
  pn.appendChild(el('b','',w+'님과 거래 중'));
